@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+  <head></head>
+  <body>
+    <h1>lorem</h1>
+    <h2>Lorem, ipsum.</h2>
+    <h3>Lorem, ipsum.</h3>
+
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+      Quo, sint aut. Blanditiis evenietlabore quis tempore rem facilis, 
+      veritatis laboriosam aliquid quasi corporis quam nobis pariatur ab 
+      fugiat. Harum, architecto.
+    </p>
+
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt
+      fuga maxime vel quam itaque facilis dolor molestiae tempora culpa, 
+      omnis reiciendis ut aliquid eius sunt excepturi quod delectus 
+      laudantium. Voluptates.
+    </p>
+
+    <span>
+      <a href="">在新窗口打开京东 </a> 
+      <a href="">点我发邮件 </a>
+      <a href="">跳到页面底部 </a>
+      <a href="">点我下载文件</a><br />
+      <img src="image.jpg" alt="" style="width: 200px; height: 200px;" />
+    </span>
+
+      <!-- 水平线，但目前被定义为语义上的，而不是表现层面上 -->
+    <hr />
+    <hr />
+
+    <marquee scrolldelay=500 scrollamount=100>飘~~~</marquee>
+
+    <p>
+      这几种强调 <strong>这几种强调 有什么 区别呢？ </strong> 
+      <u>这个呢? </u>
+      <em>这个呢？</em>
+    </p>
+
+    <p>&lt;!-- 这段注释需要出现在页面里面 --&gt;</p>
+
+    <p>下面是一段javascript代码，最合适用何种标签表示呢？</p>
+    <pre>
+      <code>
+        function a(){
+          return 8
+        }
+      </code>
+    </pre>
+
+    <hr />
+    
+    <ul>
+      <li>
+        小学
+        <ol>
+          <li>
+            一年级
+            <ol>
+              <li>上学期</li>
+              <li>下学期</li>
+            </ol>
+          </li>
+          <li>二年级</li>
+          <li>三年级</li>
+        </ol>
+      </li>
+      <li>中学</li>
+      <li>大学</li>
+    </ul>
+
+    <hr />
+
+    <ul style="list-style-type: none;">
+      <li>
+        班级
+        <ul style="list-style-type: none;"><li>三年二班</li></ul>
+      </li>
+      <li>
+        老师
+        <ul style="list-style-type: none;">
+          <li>张老师</li>
+          <li>李老师</li>
+          <li>王老师</li>
+        </ul>
+      </li>
+      <li>学生</li>
+    </ul>
+
+    <form target="_blank" action="https://www.google.com.hk/search">
+      <h3>Google搜索</h3>
+      <!-- name：input表单控件的名字。以名字/值对的形式随表单一起提交
+      required：布尔值。表示此值为必填项或者提交表单前必须先检查该值 -->
+      <input type="text" required name="q" autofocus/>
+      <input type="hidden" name="ie" value="UTF-8">
+      <input type="hidden" name="aaa" value="bbbb">
+      <button>在新窗口打开搜索结果</button>
+    </form>
+    
+    <hr />
+
+    <form>
+      <p>个人信息调查表 </p>
+      <dl>
+        <dt>性别</dt>
+        <dd>
+          <input type="radio" name="xingbie" value="man">男
+          <input type="radio" name="xingbie" value="male">女
+        </dd> 
+      </dl>
+
+      <dl>
+        <dt>年龄</dt>
+        <dd>
+          <select name="age" value="请选择">
+            <option value="select" hidden>请选择</option>
+            <optgroup label="少年">
+              <option value="1-6">1到6</option>
+              <option value="6-12">6到12</option>
+            </optgroup>
+            <optgroup label="青年">
+              <option value="1-6">1到6</option>
+              <option value="6-12">6到12</option>
+            </optgroup>
+            <optgroup label="壮年">
+              <option value="1-6">1到6</option>
+              <option value="6-12">6到12</option>
+            </optgroup>
+          </select>
+        </dd>
+      </dl>
+      
+      <dl>
+        <dt>生日</dt>
+        <dd>
+          <input type="date" name="date">
+        </dd>
+      </dl>
+
+      <dl>
+        <dt>生辰</dt>
+        <dd>
+          <input type="time" name="time">
+        </dd>
+      </dl>
+
+      <dl>
+        <dt>照片</dt>
+        <dd>
+          <label >
+            <input type="file"  name="file" hidden>
+            “上传文件”
+          </label>
+        </dd>
+      </dl>
+
+      <dl>
+        <dt>肤色</dt>
+        <dd>
+          <input type="color" name=“color”>
+        </dd>
+      </dl>
+
+      <dl>
+        <dt>自我介绍</dt>
+        <dd>
+          <textarea cols="50px" rows="20px">&lt;/textarea&gt;</textarea>
+        </dd>
+      </dl>
+
+      <fieldset disabled>
+        <legend>这里面的全部禁用了</legend>
+        <input type="text">
+        <input type="text">
+        <input type="text">
+        <input type="text">
+      </fieldset>
+      <button>提交</button><button type="reset">重置</button>
+    </form>
+
+  </body>
+    
+</html>
