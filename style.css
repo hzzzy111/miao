@@ -1,0 +1,71 @@
+p.p-1{
+  color: red;
+}
+
+p.a:hover{
+  color: red;
+}
+p.a:focus{
+  color: green;
+}
+p.a:active{
+  color: blue;
+}
+
+.ac span{
+  color: red;
+}
+.ac span span:nth-child(1){
+  color: green;
+}
+.ac span:nth-child(2){
+  color: blue;
+}
+
+div p:link{
+  color: pink;
+}
+div p:visited{
+  color: orange;
+}
+div a:nth-child(7),div a:nth-child(5),div a:nth-child(6){
+  color: red;
+}
+div a:nth-child(8),div a:nth-child(9){
+  color: yellow;
+}
+div a:nth-child(10),div a:nth-child(11){
+  font-size: 30px;
+}
+
+div.a ul li:nth-child(4),
+div.a ul li:nth-child(5),
+div.a ul li:nth-child(6),
+div.a ul li:nth-child(7){
+  color: red;
+}
+
+/* div.b ul li:nth-child(n+35):nth-child(-n+50)
+添加范围 */
+div.b ul li:nth-child(-n + 25){
+  color: red;
+}
+div.b ul li:nth-child(n + 65){
+  color: green;
+}
+div.b ul li:nth-child(n+35):nth-child(-n+50){
+  color: blue;
+}
+
+
+div.prime ul li:nth-child(2n){
+  color: green;
+}
+div.prime ul li:nth-child(2),
+div.prime ul li:nth-child(2n + 1){
+  color: red;
+}
+
+div.prime ul li:nth-child(1){
+  color: black;
+}
