@@ -4,59 +4,16 @@
   <head>
     <meta charset="utf-8">
     <title>Document</title>
-    <style>
-      p:first-child{
-        color: red;
-      }
-
-      p.a:focus{
-        color: blue;
-      }
-      p.a:hover{
-        color: green;
-      }
-      p.a:active{
-        color: red;
-      }   
-      
-      p.a.c > span{
-        color: red;
-      }
-      p.a.c > span > span{
-        color: green;
-      }
-      p.a.c > span > span:nth-child(2){
-        color: blue;
-      }
-
-      
-    </style>
-
-    <style>
-      div a:visited{
-        color: pink;
-      }
-      div a:link{
-        color: orange;
-      }
-      div a[href^="mailto:" i]{
-        color: blue;
-      }
-      div a[href^="tel:" i]{
-        color: yellow;
-      }
-      div a[href$=".pdf" i]{
-        font-size: 30px;
-      }
-    </style>
+    <style></style>
+    <link rel="stylesheet" href="style.css" type="text/css">
   </head>
   <body>
-    <p>红色</p>
+    <p class="p-1">红色</p>
 
-    <p class="a" tabindex="1">鼠标悬浮时为红色，按下去时为绿色，获得焦点时为蓝色</p>
+    <p class="a" tabindex="-1">鼠标悬浮时为红色，按下去时为绿色，获得焦点时为蓝色</p>
 
-    <p class="a c">
-      <span>
+    <p class="ac">
+      <span >
         红色
         <span>绿色</span>
         <span>蓝色</span>
@@ -75,7 +32,7 @@
       <a href="https://www.mi.com/">mi</a>
       <a href="https://www.jd.com/">jd</a>
       <a href="https://www.lksdjfwief.com/">你肯定没访问过我</a>
-      <a href="mailto:html">这不是邮件链接</a>
+      <a href="mailto.html">这不是邮件链接</a>
       <a href="MAILTO:a@b.com">给我发邮件</a>
       <a href="mailto:a@b.com">给我发邮件</a>
       <a href="tel:12345678">给我打电话</a>
@@ -86,12 +43,7 @@
 
     <style>
 
-      .a ul li:nth-child(4),
-      .a ul li:nth-child(5),
-      .a ul li:nth-child(6),
-      .a ul li:nth-child(7){
-        color: red;
-      }
+
 
     </style>
     <div class="a">
@@ -114,15 +66,7 @@
 
 
     <style>
-      .b ul li:nth-child(-n + 25){
-        color: red;
-      }
-      .b ul li:nth-child(n + 65){
-        color: green;
-      }
-      .b ul li:nth-child(n + 35):nth-child(-n + 50){
-        color: blue;
-      }
+
     </style>
     <div class="b">
       <p>让25及以内的元素为红色</p>
@@ -235,13 +179,7 @@
     <hr>
 
     <style>
-      .prime ul li:nth-child(1),
-      .prime ul li:nth-child(2n + 4),
-      .prime ul li:nth-child(3n + 9),
-      .prime ul li:nth-child(5n + 25),
-      .prime ul li:nth-child(7n + 49){
-        color: red;
-      }
+
     </style>
     <div class="prime">
       <p>让所有的质/素数(prime)（2，3，5，7，11，13……）跟合数（4，6，8，9，10……）为不同的颜色</p>
