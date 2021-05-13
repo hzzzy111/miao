@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .container{
+    }
+    section[class|=section]{
+      border: 3px solid red;
+      width: 300px;
+      height: 300px;
+      margin: 30px auto;
+      position: relative;
+    }
+    .section-a img{
+      display: block;
+      margin: auto;
+    }
+    .section-b img{
+      object-fit: contain;
+      width: 300px;
+      height: 300px;
+    }
+    .section-c img{
+      object-fit: cover;
+      width: 300px;
+      height: 300px;
+    }
+    .section-d img{
+      position: absolute;
+      display: block;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      margin: auto;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <section class="section-a"><img src="down2.jpg" alt=""></section>
+    <section class="section-b"><img src="down3.jpg" alt=""></section>
+    <section class="section-c"><img src="down3.jpg" alt=""></section>
+    <section class="section-d"><img src="down.jpg" alt=""></section>
+  </div>
+</body>
+</html>
