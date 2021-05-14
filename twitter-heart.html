@@ -6,32 +6,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
   <style>
-    .heart{
+    div{
       width: 100px;
       height: 100px;
-      background: url("heart.png") no-repeat;
-      display: inline-block;
+      background: url("heart.png") 0 0 no-repeat;
     }
-    .heart:hover{
-      animation: heart .5s steps(12) ;
-    }
-
-    @keyframes heart{
-      0%{
-        background-position: 0 0;
-      }
-      100%{
-        background-position: -1200px 0;
-      }
+    div:hover{
+      transition: 1s steps(28);
+      background-position: -2800px 0;
     }
   </style>
 </head>
 <body>
-  <div class="stage">
-    <div class="heart"></div>
-    <div class="heart"></div>
-    <div class="heart"></div>
-    <div class="heart"></div>
-  </div>
+  <div></div>
 </body>
 </html>
