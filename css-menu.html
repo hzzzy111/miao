@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    *{
+      margin: 0;
+    }
+    .container{
+      border: 1px solid black;
+      height: 38px;
+      background-color: #333;
+      width: 100%;
+      margin: auto;
+    }
+    header, ul{
+      width: 80%;
+      color: white;
+      margin: auto;
+      font-size: 16px;
+    }
+    header li{
+      display: inline-block;
+      border-right: 1px solid white;
+      list-style: none;
+      margin: 10px 0 0;
+      padding: 0 10px;
+      color: rgba(255, 255, 255, 0.7);
+    }
+    header li:last-child{
+      border: none;
+    }
+    header li:hover{
+      color: rgba(255, 255, 255, 1);
+      cursor: pointer;
+    }
+    .header-box{
+      position: relative;
+    }
+    .header-box span {
+      width: 244px;
+      height: 0px;
+      position: absolute; 
+      top: 30px;
+      left: -100px;
+      overflow: hidden;
+      /* visibility: hidden; */
+      transition: height 2s;
+      /* -webkit-transition: height .3s; */
+    }
+    /* .header-box span:hover{
+      height: 244px;
+      width: 244px;
+    } */
+    .header-box img{
+      object-fit: cover;
+      width: 244px;
+      height: 244px;
+    }
+    .header-box:hover span {
+      /* visibility: visible; */
+      overflow: visible;
+      height: 244px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <ul>
+        <li>aa</li>
+        <li>bb</li>
+        <li>cc</li>
+        <li>dd</li>
+        <li class="header-box">
+          下拉
+          <span > <img src="down1.jpg" alt=""> </span>
+        </li>
+        <li>ff</li>
+        <li></li>
+      </ul>
+    </header>
+  </div>
+</body>
+</html>
