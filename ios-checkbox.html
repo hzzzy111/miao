@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    div{
+      width: 310px;
+      height: 152px;
+      border: 1px solid black;
+      border-radius: 75px;
+      transition: box-shadow .5s;
+    }
+    label{
+      width: 114px;
+      height: 134px;
+      box-shadow: 0 2px 15px rgba(0, 0, 0, 0.5);
+      border-radius: 50%;
+      padding: 0 20px;
+      display: inline-block;
+      margin: 7px  0 0 5px;
+      
+      background: white;
+    }
+    input:checked + div{
+      transition: box-shadow .5s;
+      box-shadow: inset 0 0 0 120px #20d338;
+    }
+    /* 匹配input被勾选/选中的radio(单选按钮),checkbox(复选框),或者option(select中的一项)  */
+    /* 点击后内嵌一个颜色 */
+    /* input:not(:checked) + div{
+      transition: .5s;
+      
+    } */
+    input:checked + div  label{
+      transition: margin-left .5s, width .5s, padding .1s ;
+      margin-left: 149px;
+      width: 154px;
+      padding: 0;
+    }
+    /* 球的变动padding */
+    input:not(:checked) + div  label{
+      margin-left: 9px;
+      transition: margin-left .5s, width .2s, padding .1s;
+    }
+
+    input{
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <span></span>
+  <input type="checkbox" id="bg">  
+  <div>
+    <label for="bg"></label>
+  </div>
+</body>
+</html>
