@@ -8,19 +8,18 @@
   <style>
     *{
       margin: 0;
+      font-size: 0;
     }
     .container{
-      border: 1px solid black;
-      height: 38px;
-      background-color: #333;
       width: 100%;
       margin: auto;
+      background-color: #333;
+      font-size: 16px;
     }
     header, ul{
       width: 80%;
       color: white;
       margin: auto;
-      font-size: 16px;
     }
     header li{
       display: inline-block;
@@ -29,6 +28,8 @@
       margin: 10px 0 0;
       padding: 0 10px;
       color: rgba(255, 255, 255, 0.7);
+      position: relative;
+      font-size: 16px;
     }
     header li:last-child{
       border: none;
@@ -37,9 +38,6 @@
       color: rgba(255, 255, 255, 1);
       cursor: pointer;
     }
-    .header-box{
-      position: relative;
-    }
     .header-box span {
       width: 244px;
       height: 0px;
@@ -47,34 +45,84 @@
       top: 30px;
       left: -100px;
       overflow: hidden;
-      /* visibility: hidden; */
-      transition: height 2s;
-      /* -webkit-transition: height .3s; */
+      transition: height .1s;
     }
-    /* .header-box span:hover{
-      height: 244px;
-      width: 244px;
-    } */
     .header-box img{
       object-fit: cover;
       width: 244px;
       height: 244px;
     }
     .header-box:hover span {
-      /* visibility: visible; */
-      overflow: visible;
       height: 244px;
+      transition: height .1s;
     }
+    header ul ul{
+      display: inline-block;
+      position: absolute;
+      top: 21px;
+      left: -40px;
+      height: 0;
+      overflow: hidden;
+      z-index: -1;
+      transition: .1s;
+    }
+    header ul ul li{
+      border: none;
+      color: black;
+      background: blueviolet;
+      text-align: center;
+      width: 20.8px;
+      margin: 0;
+    }
+    header ul li:hover ul, ul li:hover ul {
+      color: green;
+      height: 83.2px;
+      width: 40.8px;
+      transition: .1s;
+    }
+    
   </style>
 </head>
 <body>
   <div class="container">
     <header>
       <ul>
-        <li>aa</li>
-        <li>bb</li>
-        <li>cc</li>
-        <li>dd</li>
+        <li>aa
+          <ul class="a">
+            <li>>>
+            </li>
+            <li>aaa</li>
+            <li>rrr</li>
+            <li>eee</li>
+          </ul>
+        </li>
+        <li>bb
+          <ul>
+            <li>>>
+            </li>
+            <li>aaa</li>
+            <li>rrr</li>
+            <li>eee</li>
+          </ul>
+        </li>
+        <li>cc
+          <ul>
+            <li>>>
+            </li>
+            <li>aaa</li>
+            <li>rrr</li>
+            <li>eee</li>
+          </ul>
+        </li>
+        <li>dd
+          <ul>
+            <li>>>
+            </li>
+            <li>aaa</li>
+            <li>rrr</li>
+            <li>eee</li>
+          </ul>
+        </li>
         <li class="header-box">
           下拉
           <span > <img src="down1.jpg" alt=""> </span>
