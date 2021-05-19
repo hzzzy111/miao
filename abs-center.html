@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    *{
+      margin: 0;
+      padding: 0;
+    }
+    div{
+      box-sizing: border-box;
+      width: 300px;
+      height: 300px;
+      border: 2px solid red;
+      float: left;
+    }
+    section{
+      width: 100px;
+      height: 100px;
+      background-color: violet;
+    }
+    div.inline{
+      display: inline-block;
+      text-align: center;
+      line-height: 300px;
+    }
+    section.inline{
+      display: inline-block;
+      vertical-align: middle;
+    }
+    div.postion{
+      position: relative;
+    }
+    section.postion{
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      margin: auto;
+    }
+    div.table{
+      vertical-align: middle;
+      display: table-cell;
+      float: none;
+    }
+    section.table{
+      margin: auto;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  
+    <div class="inline">
+      <section class="inline">inline</section>
+    </div>
+
+    <div class="postion">
+      <section class="postion">position</section>
+    </div>
+
+    <div class="table">
+      <section class="table">table</section>
+    </div>
+ 
+</body>
+</html>
