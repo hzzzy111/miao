@@ -74,12 +74,12 @@
     }
 
     .box{
-      width: 136.8px;
-      height: 136.8px;
-      border: 1px solid black;
+      width: 126.8px;
+      height: 126.8px;
+      border: none;
     }
     div.box:hover{
-      border: 1px solid black;
+      border: none;
      
     }
     p{
@@ -90,6 +90,14 @@
       position: relative;
       line-height: 35.6px;
       float:left ;
+      margin-top: -5px;
+      margin-left: -5px;
+    }
+    p:nth-child(3n + 1){
+      margin-left: 0;
+    }
+    P:nth-child(-n + 3){
+      margin-top: 0;
     }
     p:hover{
       border: 5px solid red;
