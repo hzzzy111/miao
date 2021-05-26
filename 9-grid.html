@@ -104,6 +104,42 @@
       cursor: pointer;
       z-index: 2;
     }
+
+    table.pseudo{
+      border-collapse: collapse;
+    }
+    table.pseudo tr {
+      border: 5px solid blue;
+    }
+    table.pseudo tr td{
+      font-size: 16px;
+      border: 5px solid blue;
+      width: 35.6px;
+      height: 35.6px;
+      position: relative;
+    }
+    table.pseudo tr td:hover:before{
+      content: '';
+      border: 5px solid red;
+      position: absolute;
+      top: -5px;
+      right: -5px;
+      bottom: -5px;
+      left: -5px;
+      cursor: pointer;
+      pointer-events: none;
+    }
+
+    table.col{
+      border: 5px solid blue;
+    } 
+    table.col tr{
+      /* border: 5px solid blue; */
+    }
+    table.col tr td{
+      font-size: 16px;
+      /* border: 5px solid blue; */
+    }
   </style>
 </head>
 <body>
@@ -133,7 +169,7 @@
   <sb>block</sb>  
   </main>
 
-  <main class="container"">
+  <main class="container">
     <div class="box">
       <p>1</p>
       <p>2</p>
@@ -148,5 +184,48 @@
   <sb>float</sb>
   </main>
   
+  <main class="container">
+    <table class="pseudo">
+      <tr>
+        <td>1</td>
+        <td>2</td>
+        <td>3</td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td>5</td>
+        <td>6</td>
+      </tr>
+      <tr>
+        <td>7</td>
+        <td>8</td>
+        <td>9</td>
+      </tr>
+    </table>
+    <sb>table</sb>
+  </main>
+
+  <main class="container">
+    <table class="col">
+      <col>
+      <col>
+      <col>
+      <tr>
+        <td>1</td>
+        <td>2</td>
+        <td>3</td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td>5</td>
+        <td>6</td>
+      </tr>
+      <tr>
+        <td>7</td>
+        <td>8</td>
+        <td>9</td>
+      </tr>
+    </table>
+  </main>
 </body>
 </html>

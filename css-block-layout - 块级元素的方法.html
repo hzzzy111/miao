@@ -30,80 +30,69 @@
     }
 
     .box-2{
-      /* font-size: 0; */
+      
       width: 600px;
-      margin: 0 auto 15px;
+      margin: 0 auto ;
     }
-    .box-22 p{
-      font-size: 1em;
-      border: 2px solid black;
-      background-color: pink;
+    .box-2 p{
+      width: 174px;
+      height: 40px;
+      margin-top: 15px;
+      border: 3px solid;
+      background: pink;
       text-align: center;
-      width: 176px;
-      height: 36px;
-      line-height: 36px;
-      display: inline-block;
-      margin-right: 30px;
-      margin-bottom: 15px;
+      line-height: 40px;
     }
-    .box-22 p:last-child{
-      margin-right: 0;
-    }
-    .box-22 p:hover{
+    .box-2 p:hover{
       background-color: red;
     }
-    .box-23 p{
-      font-size: 1em;
-      border: 2px solid black;
-      background-color: pink;
-      text-align: center;
-      width: 176px;
-      height: 36px;
-      line-height: 36px;
+    .box-2 p:nth-child(3n+2){
+      margin-left: 210px;
+      /* margin-top: 0px; */
+      margin-top: -46px;
+    }
+    /* margin只要变为负数之前的margin都会被清除掉 */
+
+    /* p:nth-child(5){
+      margin-left: 204px;
+      margin-top: -46px;
+    } */
+
+    .box-2 p:nth-child(3n+3){
+      margin-left: 420px;
+      margin-top: -46px;
+    }
+    /* p:nth-child(6){
+      margin-left: 420px;
+      margin-top: -46px;;
+    } */
+
+    .inline{
+      margin: auto;
+      width: 600px;
+      /* font-size: 0; */
+    }
+    .inline ul{
+      font-size: 0;
+      list-style: none;
+    }
+    .inline ul li{
+      border: 3px solid black;
+      width: 174px;
+      /* height: 40px; */
+      background: pink;
+      margin: 15px 0 0;
       display: inline-block;
-      margin-right: 30px;
-      margin-bottom: 15px;
-    }
-    .box-23 p:hover{
-      background-color: red;
-    }
-    .box-23 p:last-child{
-      margin-right: 0;
-    }
-    .box-24 p{
-      font-size: 1em;
-      border: 2px solid black;
-      background-color: pink;
+      font-size: 16px;
       text-align: center;
-      width: 176px;
-      height: 36px;
-      line-height: 36px;
-      display: inline-block;
       margin-right: 30px;
-      margin-bottom: 15px;
+      line-height: 40px;
     }
-    .box-24 p:last-child{
+    .inline ul li:hover{
+      background: powderblue;
+    }
+    .inline ul li:nth-child(3n+3){
       margin-right: 0;
-    }
-    .box-24 p:hover{
-      background-color: red;
-    }
-    .box-25 p{
-      font-size: 1em;
-      border: 2px solid black;
-      background-color: pink;
-      text-align: center;
-      width: 176px;
-      height: 36px;
-      line-height: 36px;
-      display: inline-block;
-      margin-right: 30px;
-    }
-    .box-25 p:last-child{
-      margin-right: 0;
-    }
-    .box-25 p:hover{
-      background-color: red;
     }
 
     .box-3{
@@ -144,35 +133,42 @@
       </p>
     </div>
     <div class="box-2">
-      <div class="box-22">
-        <p>宽180高40(包含边框)
-        <p>产品
-        <p>产品</p>
-      </div>
-      <div class="box-23">
-        <p>宽180高40(包含边框)
-        <p>产品
-        <p>产品</p>
-      </div>
-      <div class="box-24">
-        <p>宽180高40(包含边框)
-        <p>产品
-        <p>产品</p>
-      </div>
-      <div class="box-25">
-        <p>宽180高40(包含边框)
-        <p>产品
-        <p>产品</p>
-      </div>
-    </div>
-    <div class="box-3">
-      <p>link</p>
-      <p>link</p>
-      <p>link</p>
-      <p>link</p>
-      <p>link</p>
+      <p>aa</p>
+      <p>aa</p>
+      <p>aa</p>
+      <p>aa</p>
+      <p>aa</p>
+      <p>aa</p>
+      <p>aa</p>
+      <p>aa</p>
+      <p>aa</p>
+      <p>aa</p>
+      <p>aa</p>
+      <p>aa</p>
     </div>
     <div class="inline">
+      <ul>
+        <li>aa</li>
+        <li>aa</li>
+        <li>aa</li>
+      </ul>
+      <ul>
+        <li>aa</li>
+        <li>aa</li>
+        <li>aa</li>
+      </ul>
+      <ul>
+        <li>aa</li>
+        <li>aa</li>
+        <li>aa</li>
+      </ul>
+      <ul>
+        <li>aa</li>
+        <li>aa</li>
+        <li>aa</li>
+      </ul>
+    </div>
+    <div class="box-3">
       <p>link</p>
       <p>link</p>
       <p>link</p>
