@@ -15,13 +15,13 @@
   var x = Number(prompt('a'))
   var y = Number(prompt('b'))
   var z = Number(prompt('c'))
-  console.log( (x - y) / z );
+  console.log( Math.floor((x - y) / z) );
 </script>
 
 <script id="ch0103/04" type="xxx">
   var x = Number(prompt('a'))
   var y = Number(prompt('b'))
-  console.log( x / y)
+  console.log( Math.trunc(x / y) )
   console.log( x % y );
 </script>
 
@@ -54,9 +54,9 @@
 <script id="ch0103/09" type="xxx">
   var x = Number(prompt('r'))
   var y = Math.PI
-  console.log( '直径' + (2 * x).toFixed(4) )
-  console.log('周长' + (2 * x * y).toFixed(4) )
-  console.log('面积' + (y * Math.pow(x, 2)).toFixed(4))
+  console.log((2 * x).toFixed(4) )
+  console.log((2 * x * y).toFixed(4) )
+  console.log((y * Math.pow(x, 2)).toFixed(4))
 </script>
 
 <script id="ch0103/10" type="xxx">
