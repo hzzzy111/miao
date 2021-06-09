@@ -166,7 +166,6 @@
 
 <script id="ch0104/04" type="xxx">
   var x = prompt("n").charCodeAt(0)
-  console.log(x);
   if(x % 2 == 1){
     console.log("YES");
   }
@@ -290,13 +289,13 @@
   var x = +prompt("x")
   
   if(0 <= x < 5){
-    console.log(-x + 2.5);
+    console.log((-x + 2.5).toFixed(3));
   }
   else if(5 <= x < 10){
-    console.log(2 - 1.5 * (x-3) * (x-3));
+    console.log((2 - 1.5 * (x-3) * (x-3)).toFixed(3));
   }
   else if(10 <= x < 20){
-    console.log(x / 2 - 1.5);
+    console.log((x / 2 - 1.5).toFixed(3));
   }
 </script>
 
@@ -351,7 +350,7 @@
   if( x % 4 ==0 || x % 100 == 0 && x % 400 != 0 ){
     console.log("y");
   }else {
-    console.log("n");
+    console.log("N");
   }
 </script>
 
@@ -368,13 +367,14 @@
   }
 </script>
 
-<script id="ch0104/19" type="xxx">
+<script id="ch0104/19" type="">
   var x = +prompt("x")
   var y = +prompt("y")
   var opr = prompt("opr")
   if (opr != "+" && opr != "-" && opr != "*" && opr != "/") {
     console.log("Invalid operator!");
-    if (opr == "+") {
+  }
+  if (opr == "+") {
     console.log(x + y);
     }
     else if(opr == "-"){
@@ -383,13 +383,12 @@
     else if(opr == "*"){
       console.log(x * y);
     }
-    else if(opr == "/"){
-      console.log(x / y);
-      if(x == 0){
+    else if(x == 0 && opr == "/"){
         console.log("Divided by zero!");
       }
+    else if(opr == "/"){
+      console.log(x / y);  
     }
-  }
 </script>
 
 <script id="ch0104/20" type="xxx">
