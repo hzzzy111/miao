@@ -436,7 +436,280 @@
   console.log( n - Math.ceil(y / x) )
 </script>
 
+<script id="ch0105/01" type="">
+  debugger
+   var x = 0
+   var y = +prompt("多少个人")
+   for (var i = 0; i < y; i++) {
+     x += +prompt("输入年龄")
+   }
+   var average = (x / y).toFixed(2)
+   console.log(average);
+ </script>
 
+<script id="ch0105/02" type="">
+  debugger
+  var x = 0
+  for (var y = 0; y < 12; y++){
+    x += +prompt("请输入结余")
+  }
+  var average = "$" + (x / 12).toFixed(2)
+  console.log(average);
+</script>
+
+<script id="ch0105/03" type="">
+  var x = 0
+  var y = +prompt("输入整数")
+  for(var i = 0; i < y; i++){
+    x += +prompt("样本数据")
+  }
+  var z = (x / y).toFixed(4)
+  console.log(z);
+</script>
+
+<script id="ch0105/04" type="">
+  var x = 0
+  var y = +prompt("几个整数")
+  var max 
+  for(var i = 0; i < y; i++){
+    x += +prompt("分数")
+  }
+  var z = (x / y).toFixed(5)
+  console.log(x + " " + z);
+</script>
+
+<script id="ch0105/05" type="">
+  debugger
+  var x = 0
+  var y = +prompt("几个整数")
+  var max = 0
+  for(var i = 0; i < y; i++){
+    x = +prompt("分数")
+    if (x > max) {
+      max = x
+    }
+  }
+  console.log(max);
+</script>
+
+<script id="ch0105/06" type="">
+  // debugger
+  var max = 0
+  var min = 0
+  var x
+  var y = +prompt("几个整数")
+  for(var i = 0; i < y; i++){
+    x = +prompt("输入整数")
+    if(x > max){
+      max = x
+    }
+    if(x < min){
+      min = x
+    }
+  }
+  var z = (max - min)
+  console.log(z);
+</script>
+
+<script id="ch0105/07" type="">
+  // debugger
+  var z = 0
+  var y = 0
+  var x = 0
+  var day = +prompt("day")
+  for(var i = 0; i < day; i++){
+    x += +prompt("金牌") 
+    y += +prompt("银牌")
+    z += +prompt("铜牌")
+  }
+  var all = x + y + z
+  console.log(x + " " + y + " " + z + " " + all);
+</script>
+
+<script id="ch0105/08" type="">
+  // debugger
+  var x = 0
+  var n = +prompt("几变形")
+  var y = (n - 2)*180
+  for(var i = 0; i < (n - 1); i++){
+    x += +prompt("角度")
+  }
+  var result = y - x
+  console.log(result);
+</script>
+
+<script id="ch0105/09" type="">
+  var m = +prompt("第一个数")
+  var n = +prompt("最后一个数")
+  var num = 0
+  for(var i = m ; i <= n; i++){
+    if(m % 2 != 0){
+      num += m
+    }
+    m += 1
+  }
+  console.log(num + m);
+</script>
+
+<script id="ch0105/10" type="">
+  // debugger
+  var m = +prompt("第一个数")
+  var n = +prompt("最后一个数")
+  var num = 0
+  for(var i = m; i <= n; i++){
+    if(i % 17 == 0){
+      num += i
+    }
+  }
+  console.log(num);
+</script>
+
+<script id="ch0105/11" type="">
+  // debugger
+  var m = +prompt("几个整数")
+  var n = 0
+  var num1 = 0
+  var num5 = 0
+  var num10 = 0
+  for(var i = 0; i < m; i++){
+    n = +prompt("最后一个数")
+    if(n == 1){
+      num1 += 1
+    }
+    if(n == 5){
+      num5 += 1
+    }
+    if(n == 10){
+      num10 += 1
+    }
+  }
+  console.log(num1);
+  console.log(num5);
+  console.log(num10);
+</script>
+
+<script id="ch0105/12" type="">
+  // debugger
+  var N = +prompt("几个整数")
+  var m = +prompt("m")
+  var sum = 0
+  var num = 0
+  for(var i = 0; i < N; i++){
+    sum = +prompt("输入数字")
+    if(sum == m){
+      num += 1
+    }
+  }
+  console.log(num);
+</script>
+
+<script id="ch0105/13" type="">
+  // debugger
+  var n = +prompt("指数")
+  var m = +prompt("幂")
+  var num = 1;
+  for(var i = 0; i < m; i++){
+    num *= n
+  }
+  console.log(num);
+</script>
+
+<script id="ch0105/14" type="">
+  // debugger
+  var x = +prompt("人口")
+  var m = +prompt("年份")
+  var sum = x
+  for(var i = 0; i < m; i++){
+    sum +=  sum * 0.001
+  }
+  var all = (sum).toFixed(4)
+  console.log(all);
+</script>
+
+<script id="ch0105/15" type="">
+  // debugger
+  var rate = 1 + +prompt("rate") / 100
+  var money = +prompt("money")
+  var year = +prompt("year")
+  var result = money
+  if(rate >= 0 && rate <= 20 && money >= 100 && money <= 1000000 && year >= 0 && year <= 400){
+    for(var i = 0; i < year; i++){
+    result = result * rate
+    }
+  }
+  console.log(Math.floor(result))
+</script>
+
+<script id="ch0105/16" type="">
+  debugger
+  var rate = 1 + +prompt("rate") / 100
+  var money = +prompt("money")
+  var price = 200
+  var wage = 50
+  var result = "Impossible";
+  for(var i = 1; i <= 20; i++){
+    if(wage >= price){
+      result = i
+      break
+    }
+    price *= rate
+    wage += money
+  }
+  console.log(result);
+</script>
+
+<script id="ch0105/17" type="">
+  // debugger
+  var k = +prompt("第几个数")
+  var num = 1
+  var sum = 0
+  var num1 = 0
+  for(var i = 1; i < k ; i++){
+      num1 = num + sum
+      sum = num
+      num = num1
+  } 
+  console.log(num1);
+</script>
+
+<!-- <script id="ch0105/18" type="">
+  var n = +prompt("n")
+  var x = +prompt("x")
+  var y = +prompt("n")
+  for(var i = 0; i < n; i++){
+    
+  }
+</script> -->
+
+
+<script id="ch0105/20" type="">
+  // debugger
+  var h = +prompt("h")
+  var num = h
+  var result = 0
+  var answer = h;
+  for(var i = 0; i < 9; i++){
+    result = num / 2
+    num = result  
+    answer += num * 2
+  }
+  console.log((result / 2).toFixed(7));
+  console.log((answer).toFixed(4));
+</script>
+
+<script id="ch0105/21" type="">
+  // debugger
+  var n = +prompt("n")
+  var x = n * 3 + 1
+  console.log(`${n}*3+1=${x}`)
+  while (x !== 1) {
+    if(x % 2 == 0){
+      console.log(x + "/" + 2 + "=" + x / 2)
+      x = x / 2
+    }
+  }
+ console.log("END");
+</script>
 
 
 
