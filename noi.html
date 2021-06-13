@@ -672,15 +672,36 @@
   console.log(num1);
 </script>
 
-<!-- <script id="ch0105/18" type="">
+<script id="ch0105/18" type="">
   var n = +prompt("n")
-  var x = +prompt("x")
-  var y = +prompt("n")
-  for(var i = 0; i < n; i++){
-    
+  var y1 = +prompt("y1")
+  var y2 = +prompt("y2")
+  var a = y2 / y1 * 100
+  for(var i = 1; i < n; i++){
+    var x1 = +prompt("x1")
+    var x2 = +prompt("x2")
+    var b = x2 / x1 * 100
+    if( b - a > 5 ){
+      console.log("better");
+    } else if(a - b > 5){
+      console.log("worse");
+    } else{
+      console.log("same");
+    }
   }
-</script> -->
+</script>
 
+<script id="ch0105/19" type="">
+  var z = +prompt("屋顶")
+  var count = 0
+  for(var i = 0; i < z; i++){
+    var x = +prompt("x")
+    var y = +prompt("y")
+    var n = +prompt("人数")
+    count += Math.sqrt((x * x) + (y * y)) * 2 / 50 + n * 1.5
+  }
+  console.log(Math.ceil(count));
+</script>
 
 <script id="ch0105/20" type="">
   // debugger
@@ -710,6 +731,336 @@
   }
  console.log("END");
 </script>
+
+<script id="ch0105/22" type="">
+debugger
+ var money = 0
+  var z = 0
+  var ok = true 
+  for(var i = 1; i <= 12; i++ ){
+    money += 300  //每个月妈妈给的零花钱
+    var x = +prompt("消费")
+    if(money < x){ //当每个月的花销比每个月的零花钱加上个月剩下的小于消费
+      console.log(-i);
+      ok = flase //要用来判断，不然当循环到这里结束时，最后的console也会输出
+      break
+    }
+    money -= x //这个月剩余的前
+    if(money >= 100){ //剩余的前比100多
+      z += money - money % 100 //这些钱减去零头存入定期里面
+      money = money % 100 //
+    }
+  }
+  if(ok){
+    console.log(z * 1.2);
+  }
+
+</script>
+
+<script id="ch0105/23" type="">
+  debugger
+  var m = +prompt("m")
+  var x = +prompt("x")
+  var count = 0
+  for(var i = 0; i < x; i++){
+    var n = +prompt("n")
+    if(m < n){
+      count += 1
+    }else{
+      m -= n
+    }
+  }
+  console.log(count)
+</script>
+
+
+<script id="ch0105/24" type="">
+  // debugger
+  var n = +prompt("n")
+  var hour = 0
+  var diastole = 0
+  var compression = 0
+  for(var i = 0; i < n; i++){
+    diastole = +prompt("收缩压")
+    compression = +prompt("舒张压")
+    if(diastole >= 90 && diastole <= 140 &&  compression >= 60 && compression <= 90  ){
+      hour += 1
+    }
+  }
+  console.log(hour);
+</script>
+
+<script id="ch0105/25" type="">
+  // debugger
+  var n = +prompt("n")
+  var result = 0
+  for(var i = 0; i < n; i++){
+    var num = +prompt("n")
+    var a = num % 10
+    var b = parseInt(num % 100 / 10) 
+    var c = parseInt(num / 100 ) % 10
+    var d = parseInt(num / 1000)
+    var sum = b + c + d
+    if(a > sum){
+      result += 1
+    }
+  }
+  console.log(result);
+</script>
+
+<script id="ch0105/26" type="">
+  // debugger
+  var n = +prompt("n")
+  var result = 0
+  for(var i = 0; i < n; i++){
+    var num = +prompt("n")
+    var a = num % 10
+    var b = parseInt(num % 100 / 10) 
+    var c = parseInt(num / 100 ) % 10
+    var d = parseInt(num / 1000)
+    var sum = b + c + d
+    if(a > sum){
+      result += 1
+    }
+  }
+  console.log(result);
+</script>
+
+<script id="ch0105/27" type="">
+  debugger
+  var k = +prompt("k")
+  var n = 1
+  var a = 0;
+  while (a < k) {
+    a = n + 1
+    n = a
+    if(a > k){
+      console.log(a);
+    }
+  }
+</script>
+
+<script id="ch0105/28" type="">
+  // debugger
+  var n = +prompt("n")
+  while (n >= 1) {
+    var a = n % 10  //得出个位数a的值
+    console.log(a);
+    n = (n - a) / 10  //让123变为12 继续下一个循环
+  }
+</script>
+
+<script id="ch0105/29" type="">
+  // debugger
+  var n = +prompt("n")
+  var b = 0
+  while (n >= 1 || n <= -1)  {
+    var a = n % 10  //得出个位数a的值
+    b = b * 10 + a  //从第一位开始乘10的倍数
+    n = (n - a) / 10  //让123变为12 继续下一个循环
+  }
+  console.log(b);
+</script>
+
+<script id="ch0105/30" type="">
+  // debugger
+  var n = +prompt("n")
+  var m = +prompt("m")
+  var a = 0
+  var b = 0
+  while (n > 1) {
+    a = n % 10
+    if( a == 3){
+      b += 1
+    }
+    n = (n - a) / 10
+  }
+  if(b == m && n % 19 ==0){
+    console.log("YES");
+  }
+  else{
+    console.log("NO");
+  }
+</script>
+
+
+
+<script id="ch0105/32" type="">
+  debugger
+  var n = +prompt("n")
+  var p = 1
+  var q = 2
+  var p2 = 0
+  var count = 0
+  for(var i = 0; i < n; i++){
+    count += q / p
+    p2 = q
+    q = q + p
+    p = p2
+  }
+  console.log((count).toFixed(4));
+</script>
+
+<script id="ch0105/33" type="">
+  debugger
+  var n = +prompt("n")
+  var target = 0
+  var count = 0
+  var x = 1
+  for(var i = 1; i < n + 1; i++){
+    if(i % 2 == 0){
+      x = -x
+    }
+    target = x / i
+    count += target
+  }
+  console.log(count.toFixed(4));
+</script>
+
+<script id="ch0105/34" type="">
+  debugger
+  var n = +prompt("n")
+  var count = 0
+  var x = 1
+  for(var i = 1; i < n + 1; i++){
+    x = i * x
+    count += x
+  }
+  console.log(count);
+</script>
+
+<script id="ch0105/35" type="">
+  debugger
+  var n = +prompt("n")
+  var count = 1
+  var x = 1
+  for(var i = 1; i < n + 1; i++){
+    x = i * x
+    count += 1 / x
+  }
+  console.log(count.toFixed(10));
+</script>
+
+<script id="ch0105/36" type="">
+  debugger
+  var n = +prompt("n")
+  var x = +prompt("x")
+  var count = 0
+  
+  for(var i = 0; i < n + 1; i++){
+    var y = i
+    count += Math.pow(x, y)
+  }
+  console.log(count.toFixed(2));
+</script>
+
+<script id="ch0105/37" type="">
+  debugger
+  var m = +prompt("m") 
+  var n = +prompt("n")
+  var x = +prompt("x")
+  var used = 0;
+  while (x > 0) {
+    used = Math.ceil(m / n) //需要的能量
+    x -= used //每次战斗消耗的能量
+    n += Math.floor(m / n)//战斗
+    if( used > x ) break //消耗能量大于剩余能量
+  }
+  console.log(n);
+</script>
+
+<script id="ch0105/39" type="">
+  debugger
+  var n = +prompt("n")
+  var count = 0
+  for(var i = 0; i < n; i++){
+    var a = i % 10
+    if (i != 7 && a != 7 && i % 7 != 0){
+      count += i * i
+    }
+  }
+  console.log(count)
+</script>
+
+
+<script id="ch0105/40" type="">
+  debugger
+  var n = +prompt("n")
+  var count = 0
+  for(var i = 0; i < n + 1; i++){
+    var a = i % 10
+    var b = parseInt(i / 10)
+    if(i == 1 || a == 1){
+      count += 1
+    }
+    if(b == 1){
+      count += 1
+    }
+  }
+  console.log(count);
+</script>
+
+
+<script id="ch0105/41" type="">
+  debugger
+  var l = +prompt("l")
+  var r = +prompt("r")
+  var count = 0 
+  for(var i = l; i < r + 1 ; i++){
+    var a = i % 10 //个位
+    var b = parseInt(i / 10) //十位
+    if(a == 2){
+      count += 1
+    }
+    if(b == 2){
+      count += 1
+    }
+  }
+  console.log(count);
+</script>
+
+
+
+<script id="ch0105/43" type="">
+  debugger
+  var n = +prompt("n")
+  var a
+  for(var i = 2; i++;){ 
+    if(n % i == 0){
+      a = n / i
+      console.log(a)
+      break
+    }
+  }
+</script>
+
+<script id="ch0105/45" type="">
+  debugger
+  var n = +prompt("n")
+  var count = 0;
+  var coin = 1
+  var a = n
+  for(var i = 1; i < n + 1; i++){
+    for(var j = 1; j <= i; j++){
+      count += coin
+      a --
+      if(a == 0) {
+        console.log(count);
+        break
+      }
+      if(j == i){
+        coin ++
+      }
+    }
+  }
+  
+</script>
+
+
+
+
+
+
 
 
 
