@@ -539,16 +539,16 @@
 </script>
 
 <script id="ch0105/09" type="">
+  debugger
   var m = +prompt("第一个数")
   var n = +prompt("最后一个数")
   var num = 0
   for(var i = m ; i <= n; i++){
-    if(m % 2 != 0){
-      num += m
+    if(i % 2 == 1){
+      num += i
     }
-    m += 1
   }
-  console.log(num + m);
+  console.log(num);
 </script>
 
 <script id="ch0105/10" type="">
@@ -642,8 +642,8 @@
 
 <script id="ch0105/16" type="">
   debugger
-  var rate = 1 + +prompt("rate") / 100
   var money = +prompt("money")
+  var rate = 1 + +prompt("rate") / 100
   var price = 200
   var wage = 50
   var result = "Impossible";
@@ -714,8 +714,8 @@
     num = result  
     answer += num * 2
   }
-  console.log((result / 2).toFixed(7));
   console.log((answer).toFixed(4));
+  console.log((result / 2).toFixed(7));
 </script>
 
 <script id="ch0105/21" type="">
@@ -729,7 +729,7 @@
       x = x / 2
     }
   }
- console.log("END");
+ console.log("End");
 </script>
 
 <script id="ch0105/22" type="">
@@ -775,9 +775,10 @@ debugger
 
 
 <script id="ch0105/24" type="">
-  // debugger
+  debugger
   var n = +prompt("n")
   var hour = 0
+  var hourmax = 0
   var diastole = 0
   var compression = 0
   for(var i = 0; i < n; i++){
@@ -785,27 +786,37 @@ debugger
     compression = +prompt("舒张压")
     if(diastole >= 90 && diastole <= 140 &&  compression >= 60 && compression <= 90  ){
       hour += 1
+      if(hour  > hourmax){
+        hourmax = hour //循环下来hour一定要比hourmax大不然归零
+      }
     }
+    else{
+        hour = 0
+      }
   }
-  console.log(hour);
+  console.log(hourmax);
 </script>
 
 <script id="ch0105/25" type="">
   // debugger
   var n = +prompt("n")
-  var result = 0
-  for(var i = 0; i < n; i++){
-    var num = +prompt("n")
-    var a = num % 10
-    var b = parseInt(num % 100 / 10) 
-    var c = parseInt(num / 100 ) % 10
-    var d = parseInt(num / 1000)
-    var sum = b + c + d
-    if(a > sum){
-      result += 1
-    }
+  var a = n
+  var b = n
+  var str = ""
+  var str1 = ""
+  while (a > 0){
+  var count = n % 7
+  str += count
+  a = (a - count) / 7
   }
-  console.log(result);
+  while (b > 0){
+  var count = n % 9
+  str1 += count
+  b = (b - count) / 9
+  }
+  console.log(n);
+  console.log(str)
+  console.log(str1);
 </script>
 
 <script id="ch0105/26" type="">
@@ -943,8 +954,8 @@ debugger
 
 <script id="ch0105/36" type="">
   debugger
-  var n = +prompt("n")
   var x = +prompt("x")
+  var n = +prompt("n")
   var count = 0
   
   for(var i = 0; i < n + 1; i++){
