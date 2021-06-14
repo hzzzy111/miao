@@ -246,7 +246,7 @@
     console.log("n");
   }
 </script> -->
-<script id="ch0104/9" type="">
+<script id="ch0104/09" type="">
   var x = +prompt("x")
   if(x % 3 == 0 || x % 5 == 0 || x % 7 == 0){
     if( x % 3 == 0){
@@ -742,7 +742,7 @@ debugger
     var x = +prompt("消费")
     if(money < x){ //当每个月的花销比每个月的零花钱加上个月剩下的小于消费
       console.log(-i);
-      ok = flase //要用来判断，不然当循环到这里结束时，最后的console也会输出
+      ok = false //要用来判断，不然当循环到这里结束时，最后的console也会输出
       break
     }
     money -= x //这个月剩余的前
@@ -919,7 +919,32 @@ debugger
   }
 </script>
 
+<script id="ch0105/31">
+  var n = +prompt("n")
+  var m = +prompt("m")
+  var str = ""
+  //1-10的灯泡
+  for(var i = 1; i <= n; i++){
+    var count  = 0 //用来计算灯泡的状态
 
+    //1-10编号的人
+    for(var j = 1; j <= m; j++){
+      if(i % j == 0){  //题目为编号的倍数，所以用1-10的灯泡除以编号
+        count ++   // 能被除的次数
+      }
+    }
+
+    if(count % 2 != 0) { // 能被除的次数为奇数时都是关闭状态
+      if(i == 1){
+        str += i
+      }
+      else{
+        str +=  "," + i
+      }
+    }
+  }   
+  console.log(str);
+</script>
 
 <script id="ch0105/32" type="">
   debugger
