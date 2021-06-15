@@ -1111,25 +1111,25 @@ debugger
   var fill = +prompt("fill")
   var line = ''
   var result = ''
-  var midchar = fill ? sign : " "
+  var midchar = fill ? sign : " "   //判断中间行使用符号还是空格
 
-  for(var i = 0; i < w; i++){
+  for(var i = 0; i < w; i++){ //写出第一行和最后一行
     line += sign
   }
   
   var midline = sign
-  for(var i = 1; i < w - 1; i++){
+  for(var i = 1; i < w - 1; i++){ //写出中间部分
     midline += midchar
   }
   midline += sign  
   // console.log(line, midline);
 
 
-  var result = line + '\n'
+  var result = line + '\n'  //第一行
   for(var i = 1; i < h - 1; i++){
-    result += midline + '\n'
+    result += midline + '\n'   //每循环一次中间行数加一
   }
-  result += line
+  result += line    //最后一行
   console.log(result);
 </script>
 
@@ -1146,23 +1146,24 @@ debugger
   }
 </script>
 
-<script id="ch0105/44">
+<script id="ch0105/42">
   debugger
   var n =+prompt("n")
   var count = 0
-  for(var i = 2;; i++){
-    var isPrime = true
-
+  for(var i = 2 ;; i++){
+    var isPrime = true //判断是否为素数
+    
     for(var j = 2; j < i; j++){
-      if(i % j == 0){
+      if(i % j ==0){ //如果除得进游戏结束
         isPrime = false
         break
       }
     }
-    if(isPrime){
-      count++
+
+    if(isPrime){  //为素数count+1
+      count ++
     }
-    if(count == n){
+    if(count == n){   //第十个数时输出i
       console.log(i);
       break
     }

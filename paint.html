@@ -152,6 +152,19 @@
     }
   }
 
+  //半径为50，200空心圆
+  for(var i = 0; i < 300; i+=0.09){
+    dot(i, 250 + Math.sqrt(2500 - (i - 250) * (i - 250)) , "pink" )
+    dot(i, 250 - Math.sqrt(2500 - (i - 250) * (i - 250)) , "pink" )
+  }
+
+  for(var i = 0; i < 450; i+=0.09){
+    dot(i, 250 + Math.sqrt(40000 - (i - 250) * (i - 250) ) , "hotpink")
+    dot(i, 250 - Math.sqrt(40000 - (i - 250) * (i - 250) ) , "hotpink")
+  }
+
+
+
 
 
 
