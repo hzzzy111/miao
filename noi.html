@@ -923,6 +923,36 @@ debugger
   }
 </script>
 
+<!-- 下面的这种性能会高点，  上面是先循环再判断是否能被19整除，  下面先判断再进入循环 -->
+<!-- <script id="ch0105/30" type="">
+  debugger
+  
+  var m = +prompt('m')
+  var k = +prompt("k")
+  var isTrue = false 
+
+  if(m % 19 == 0){
+    var count = 0
+    do{
+      var sum = m % 10  //让m余下最后一个数
+      if(sum == 3){  
+        count ++
+      } 
+      m = (m - sum) / 10 //再减去个位的数除以十
+    }while (m)
+
+    if(count == k){ 
+      isTrue = true  //判断isTrue是否为真
+      console.log("YES");      
+    }
+  }
+  
+  if(!isTrue){   //当count == k成立时， isTrue的值为true，  而这里的值就为false
+    console.log("NO");
+  }
+</script> -->
+
+
 <script id="ch0105/31">
   var n = +prompt("n")
   var m = +prompt("m")
@@ -947,6 +977,37 @@ debugger
   }   
   console.log(str);
 </script>
+
+<!-- <script id="ch0105/31" type="">
+  debugger
+  
+  var n = +prompt("n")
+  var m = +prompt('m')
+  var count = 0
+  var aaa = false   //对逗号的判定
+
+  for (var light = 1; light <= n; light++){ //灯
+    
+    var state = true  //判断开关灯状态， 此时为开灯
+    
+    for(var man = 1; man <= m && man <= light; man++){  //人的编号
+      if(light % man == 0){  //每个人对灯的操作
+        state = !state    //要是能进来就关灯
+      }
+    }
+
+    if(state == false){   //关灯就进去这
+      if(aaa){  //判断aaa，     由于第一个aaa为false，      所以第一个数后面没有逗号
+        console.log(',');
+      }
+      console.log(light);
+      aaa = true; //走完第一遍循环，   aaa返回true，   从第二次开始就加逗号
+    }
+  }
+  
+</script> -->
+
+
 
 <script id="ch0105/32" type="">
   debugger
@@ -1155,7 +1216,7 @@ debugger
     
     for(var j = 2; j < i; j++){
       if(i % j ==0){ //如果除得进游戏结束
-        isPrime = false
+        
         break
       }
     }
@@ -1170,6 +1231,46 @@ debugger
   }
   
 </script>
+
+<!-- <script id="ch0105/44">
+  debugger
+  
+  function a(n) {
+    
+    let count = 0
+
+    for(let i = 2; ; i++){
+      let isPrame = true
+      let sqrt_i = Math.sqrt(i)
+
+
+      //这里的j还可以换成2/i，   比如 i = 53， 那么53 / 26 = 2,  再往下的就没有必要再去除了    
+      //Math.sqrt(i)只有素数能这么用，    因为已经已经确定素数是除不仅    ，如果要循环100万次，     
+      // 根号后只需1000次，       为什么非素数不能用，   因为根号后与2/n之间还可能存在能除尽的数
+      
+      for(let j = 2; j < sqrt_i; j++){   
+                                        
+        if(i % j == 0){
+          isPrame = false
+          break
+        }
+      }
+    
+      if(isPrame){
+        count ++
+      }
+
+
+      if(count == n){
+        return i
+      }
+
+    }
+
+  }
+
+  a(10)
+</script> -->
 
 <script id="ch0105/45" type="">
   debugger
@@ -1194,11 +1295,324 @@ debugger
 </script>
 
 
+<script id="narcissistic">
+  debugger
+  function isNarcissistic(n){
+    let num1, num2, num3
+    num1 = n % 10 //个位数
+    num2 = (n - num1) / 10 % 10 //十位数
+    num3 = (n - n % 100) / 100 //百位数
+    if(num1 ** 3 + num2 ** 3 + num3 ** 3 == n){
+      return true
+    }else{
+      return false
+    }
+  }
+  console.log(isNarcissistic());
+</script>
+
+<script id="narcissistics">
+  debugger
+  function isNarcissistic(n){
+    var count = 0, num, target
+    let result = ""
+    
+    for(let n = 100; n <= 10000; n++){
+      target = n  //需要一个变量保存n，不然循环的n会变
+      
+      while (target > 0) {  // 让一个target余10
+        num = target % 10
+        count = count + num ** 3
+        target = (target - num) / 10 //  再把他的个位减去除以十得到前两位
+      }
+
+      if(count == n){
+          result += count + " "
+          count = 0   //因为count 保存的是一个数， 所以要将他归零
+      }
+      else{
+        count = 0 
+      }
+    }  
+    
+    return result
+  }
+  console.log(isNarcissistic()); 
+</script>
+
+<!-- 另一种方法,    函数嵌套 -->
+<!-- <script id="isNarcissistic">
+  debugger
+  
+  function power(x, y){
+    let r = 1
+    for(var i = 0; i < y; i++){
+      r *= x
+    }
+    return r
+  }
+  
+  function digihtWidth(n){
+    let count = 0
+    let num
+    while (n) {
+      num = n % 10
+      count ++
+      n = (n - num) / 10
+    }
+    return count
+  }
+
+  function isNarcissistic(n){
+    let target = n
+    let num, count = 0
+    let width = digihtWidth(n)  //定义有几次幂
+
+    while(target > 0){
+      num = target % 10
+      count +=  power(num, width)     //定义power，power为几个数相乘
+      target = (target - num) / 10
+    }
+
+    return count == n   //这里就可以做布尔值判定，   当count不等于n返回false，    不然true
+
+  }
+  
+  console.log(isNarcissistic(153));
+  
+</script> -->
 
 
 
+<script id="palindrom">
+  debugger
+  
+  function isPalindrom(n){
+    let num
+    let result = 0
+    let target = n
+    while (target) {
+      num = target % 10
+      result = result * 10 + num
+      target = (target - num) / 10
+    }
+
+    if(n == result){
+      return true
+    } else{
+      return false
+    }
+
+  }
+    
+  isPalindrom()
+  
+</script>
+
+<script id="weekday">
+  debugger
+  
+  function weekDay(year, month){
+    let day = 0
+    
+    for(let i = 1; i < year; i++){
+     
+      if(isLeapYear(year)){
+        day += 366
+      }else{
+        day += 365
+      }
+
+    }
+
+    for(let i = 1; i < month; i++){
+      day += getMonthDay(year, i)
+    }
+
+    return (day + 1) % 7
+  }
+
+  function isLeapYear(year){
+    return year % 400 == 0 || year % 4 == 0 && year % 100 !== 0
+  }
+
+  function getMonthDay(year, month){
+    
+    switch(month){
+      case 4:
+      case 6:
+      case 9:
+      case 11:
+        return 30
+      case 2:
+        if(isLeapYear(year)){
+          return 29
+        }else{
+          return 28
+        }
+      default:
+        return 31
+    }
+
+  }
 
 
+</script>
+
+
+<script id="complete-number">
+  debugger
+  function isCompleteNumber(n){
+    let target = 0
+    
+    for(let i = 0; i < n; i++){
+      if(n % i == 0){
+        target += i
+      }
+
+      // if(target == n){
+      //   return true
+      // }  else{
+      //   return false
+      // }
+      return sum == n       //这只能够写发是上面的简写
+
+    }
+  }
+  console.log(isCompleteNumber()); 
+</script>
+
+<script id="complete-numbers">
+  debugger
+  function isCompleteNumbers(i){
+    let target = 0
+    let result = ""
+    
+    for(let i = 1; i < 1000; i++){
+      
+      for(let j = 1; j < i - 1; j++){
+        if(i % j ==0){
+          target += j 
+        }
+      }
+
+      if(target == i){
+        result += target + " "
+        target = 0
+      }else{
+        target = 0
+      }
+    }
+    
+    return result
+  }
+
+  console.log(isCompleteNumbers()); 
+  
+</script>
+
+<script id="prime">
+  debugger
+  function isPrime(n){
+    let logged = true
+    
+    for(let i = 2; i < n - 1; i++){   
+      if(n % i == 0){   //判断n余i是否为零，（它前面的数给他除去）
+        logged = false
+        return logged
+      }
+    }
+
+      if(logged){
+        return logged
+      }
+  }
+  console.log(isPrime()); 
+  
+</script>
+
+<script id="primes">
+  debugger
+  function isPrimes(n){
+    let logged = true      //判断是否为素数
+    let result = ""
+
+    for(n = 2; n < 1000; n++){
+      for(let i = 2; i < n; i++){   
+        if(n % i == 0){   //判断n余i是否为零，（它前面的数给他除去）
+          logged = false  //能整除时，    logged变为false，       继续往下执行
+          break
+        }
+      }
+
+      if(logged){         //如果logged为false跳过，     为ture往下执行
+        result += n +' '  
+      }
+      if(!logged){        //执行这段，      
+        logged = true     //重置logged
+      }
+    }
+
+    return result
+  }
+  console.log(isPrimes()); 
+  
+</script>
+
+<script id="lcf&lcm">
+  debugger
+  function isPrimes(n, m){
+    
+    let a = "", c = m * n, d = 0
+      
+    for(let i = c - 1; i > 1; i--){   //最小公倍数  i是两个数相乘  ， 为了让i小于他们相乘的公倍数，    c - 1
+      if(i % m == 0 && i % n == 0){   
+        if(c > i){  //  让公倍数比较，    最小的留下
+            c = i 
+        }  
+      }
+    }
+
+    
+    for(let i = n; i > 1; i--){   //最大公约数
+      if(m % i == 0 && n % i == 0){    //随便一个数从前往后相除
+        d = i
+        break
+      }
+    }
+
+    a = c + " " + d
+    return a
+  }
+
+  console.log(isPrimes());
+  
+</script>
+
+<script id="sqrt">
+  debugger
+  
+  function sqrt(x){
+    let low = 0
+    let height = x
+
+    while(height - low > 0.000000001){    //当两个数相见接近这个数
+      let mid = (height + low) / 2    //就一直去中间的值
+      
+      if(mid * mid > x){      //这两个就一直相减凑出来
+        height = mid
+      }else {
+        low = mid
+      }
+
+    }
+
+    return height
+
+  }
+
+  sqrt(5)
+</script>
 
 
 
