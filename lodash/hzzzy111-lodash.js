@@ -13,8 +13,19 @@ var hzzzy111 = {
       }        
     }
     return ary
-  }
+  },
   
+  compact: function(array){
+    var ary = []
+    for(var i = 0; i < array.length; i++){
+      if(!array[i]){
+        continue
+      }
+      ary.push(array[i])
+    }
+    return ary
+  },
+
 }
 
 
