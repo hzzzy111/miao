@@ -87,6 +87,7 @@ var hzzzy111 = function(){
     return map
   }
 
+  //
   function forEach(array, iteratee){
     var ary = []
     for(var i = 0; i < array.length; i++){
@@ -97,6 +98,7 @@ var hzzzy111 = function(){
     return ary
   }
 
+  //
   function map(array, iteratee){
     var ary = []
     for(var i = 0; i < array.length; i++){
@@ -104,6 +106,12 @@ var hzzzy111 = function(){
     }
   }
 
+  function zip(array){
+    var ary = []
+    for(var i = 0; i < array.length; i++){
+      
+    }
+  }
 
   return {
     chunk: chunk,
@@ -115,6 +123,8 @@ var hzzzy111 = function(){
     groupBy: groupBy,
     forEach: forEach,
     map:map,
+    zip: zip,
+
   }
 
 }()
