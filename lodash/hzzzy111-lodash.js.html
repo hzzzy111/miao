@@ -76,6 +76,32 @@
       return ary
     }
 
+    //对象不成功
+    function groupBy(array, iteratee){
+      var map = {}
+      for(var i = 0; i < array.length; i++){
+        var key = iteratee(array[i])
+        if( !(key in map) ){
+          map[key] = []
+        }
+        map[key].push(array[i])
+      }
+      return map
+    }
+
+    function forEach(array, iteratee){
+      var ary = []
+      for(var i = 0; i < array.length; i++){
+        if(iteratee(value, index, collection)){
+          ary.push(value)
+        }
+      }
+      return ary
+    }
+
+
+
+
     return {
       chunk: chunk,
       compact: compact,
@@ -83,6 +109,8 @@
       uniqueBy: uniqueBy,
       flattenDeep: flattenDeep,
       flattenDepth: flattenDepth,
+      groupBy: groupBy,
+      forEach: forEach,
 
     }
   }()
