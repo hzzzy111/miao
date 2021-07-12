@@ -5,7 +5,7 @@ var hzzzy111 = function(){
         ary.push([])
       }
     for(var i = 0; i < array.length; i++){
-      if(i <= number){
+      if(i + 1 <= number){
         ary[0].push(array[i])
       }else{
         ary.push(array[i])
@@ -116,7 +116,7 @@ var hzzzy111 = function(){
     forEach: forEach,
     map:map,
   }
-  
+
 }()
 
 
