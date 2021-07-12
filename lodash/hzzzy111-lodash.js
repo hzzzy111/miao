@@ -154,6 +154,66 @@ var hzzzy111 = function(){
     return ary
   }
 
+  function every(array, predicate){
+    var map = {}
+    for(var i = 0; i < array.length; i++){
+      if(typeof predicate === 'function'){
+        if( !predicate(array[i]) ){
+          return false
+        }
+      }else{
+        if(predicate[0] in array[i]){
+          var x = predicate[0]
+          predicate[1] == array[i][x]
+          continue
+        }else{
+          return false
+        }
+      }
+    }
+    return true
+  }
+
+  function some(array, predicate){
+    var map = {}
+    for(var i = 0; i < array.length; i++){
+      if(typeof predicate === 'function'){
+        if( predicate(array[i]) ){
+          return true
+        }
+      }else{
+        if(Array.isArray(predicate)){
+          if(predicate.length > 1){
+            var x = predicate[i]
+            if(predicate[1] == array[i][x])
+            return true
+          }
+        }
+        if(predicate in array[i]){
+          return true
+        }
+      }
+    }
+    return false
+  }
+
+  function difference(array, values){
+    var ary = []
+    for(var i = 0; i < array.length; i++){
+      flags = false
+      for(var j = 0; j < array.length; j++){
+        if(array[i] == values[j]){
+          flags = true
+        }
+      }
+      if(!flags){
+        ary.push(array[i])
+      }
+    }
+    return ary
+  }
+
+
   return {
     chunk: chunk,
     compact: compact,
@@ -166,6 +226,10 @@ var hzzzy111 = function(){
     map:map,
     zip: zip,
     unzip:unzip,
+    every: every,
+    some: some,
+    difference: difference,
+
   }
 
 }()
