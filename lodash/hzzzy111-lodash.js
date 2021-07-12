@@ -1,5 +1,6 @@
 var hzzzy111 = {
-  chunk:function(){
+  
+  chunk:function(array, number){
     var ary = []
     if(number != 0){
         ary.push([])
@@ -13,6 +14,7 @@ var hzzzy111 = {
     }
     return ary
   }
+  
 }
 
 
