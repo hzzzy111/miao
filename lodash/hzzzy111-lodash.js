@@ -228,7 +228,7 @@ var hzzzy111 = function(){
     unzip:unzip,
     every: every,
     some: some,
-    difference: difference,
+    difference: difference
 
   }
 
