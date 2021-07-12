@@ -1559,7 +1559,36 @@ debugger
   
 </script>
 
+<!-- 辗转相除，辗转相减 -->
 <script id="lcf&lcm">
+  function lcf(a, b) {
+    var c
+    while (a && b) {
+      c = a % b
+      a = b
+      b = c
+    }
+    return a || b
+  }
+
+  function lcf(a, b) {
+    while (a != b) {
+      if (b > a) {
+        let c = a
+        a = b
+        b = c
+      }
+      a = a - b
+    }
+    return a
+  }
+  function lcm(a, b) {
+    return a * b / lcf(a,b)
+  }
+</script>
+
+<!-- 自己做的，好像能行的方法 -->
+<!-- <script id="lcf&lcm">
   debugger
   function isPrimes(n, m){
     
@@ -1587,11 +1616,11 @@ debugger
 
   console.log(isPrimes());
   
-</script>
+</script> -->
 
 <script id="sqrt">
   debugger
-  
+  // 二分法
   function sqrt(x){
     let low = 0
     let height = x
@@ -1614,6 +1643,22 @@ debugger
   sqrt(5)
 </script>
 
+
+<script id="sqrt">
+  牛顿法
+
+  debugger
+  
+  function sqrt(n) {
+    var x = n
+    while (Math.abs(x * x - n) > 0.00001) {
+      x = x / 2 + n / (2 * x)
+    }
+    return x
+  }
+
+sqrt(5)
+</script>
 
 
 <head>
