@@ -1,15 +1,16 @@
 var hzzzy111 = function(){
-  function chunk(array, number) {
-    var ary = []
-    if(number != 0){
+  function chunk(array, size= 1) {
+    var ary = [], count = 0
+    ary.push([])
+    for(var i = 0; i < size; i++){
+      ary[count].push(array[i])   
+      if(i == size - 1){
         ary.push([])
+        count++
       }
-    for(var i = 0; i < array.length; i++){
-      if(i + 1 <= number){
-        ary[0].push(array[i])
-      }else{
-        ary.push(array[i])
-      }        
+    }
+    for(var j = size; j < array.length; j++){
+      ary[count].push(array[j]) 
     }
     return ary
   }
@@ -74,43 +75,83 @@ var hzzzy111 = function(){
     return ary
   }
 
-  //对象不成功
   function groupBy(array, iteratee){
     var map = {}
-    for(var i = 0; i < array.length; i++){
-      var key = iteratee(array[i])
-      if( !(key in map) ){
-        map[key] = []
+    
+    if(typeof(iteratee) === 'function'){
+      for(var i = 0; i < array.length; i++){
+        var key = iteratee(array[i])
+        if( !(key in map) ){
+          map[key] = []
+        }
+        map[key].push(array[i])
       }
-      map[key].push(array[i])
+    }else{
+      for(var i = 0; i < array.length; i++){
+        var key = array[i][iteratee]
+        if( !(key in map) ){
+          map[array[i][iteratee]] = []
+        }
+        map[key].push(array[i])
+      }
     }
+
     return map
   }
 
-  //
   function forEach(array, iteratee){
-    var ary = []
     for(var i = 0; i < array.length; i++){
-      if(iteratee(value, index, collection)){
-        ary.push(value)
-      }
+      iteratee(array[i], i, array)
     }
-    return ary
+    return array
   }
 
   //
   function map(array, iteratee){
     var ary = []
-    for(var i = 0; i < array.length; i++){
-
+    if(typeof iteratee !== "function"){
+      for(var i = 0; i < array.length; i++){
+        ary.push(array[i][iteratee])
+      }
+      return ary
     }
+    if(Array.isArray(array[i])){
+      for(var i = 0; i < array.length; i++){
+        ary.push(iteratee(array[i], i, array))
+      }
+    }
+    if(typeof array === "object"){
+      for(var i in array){
+        ary.push(iteratee(array[i], i, array))
+      }
+    }
+    return ary
   }
 
   function zip(array){
     var ary = []
-    for(var i = 0; i < array.length; i++){
-      
+    for(var i = 0; i < arguments.length; i++){
+      for(var j = 0; j< arguments[i].length; j++){
+        if(!ary[j]){
+          ary[j] = []
+        }
+        ary[j].push(arguments[i][j])    
+      }
     }
+    return ary
+  }
+
+  function unzip(array){
+    var ary = []
+    for(var i = 0; i < array.length; i++){
+      for(var j = 0; j< array[i].length; j++){
+        if(!ary[j]){
+          ary[j] = []
+        }
+        ary[j].push(array[i][j])    
+      }
+    }
+    return ary
   }
 
   return {
@@ -124,7 +165,7 @@ var hzzzy111 = function(){
     forEach: forEach,
     map:map,
     zip: zip,
-
+    unzip:unzip,
   }
 
 }()
