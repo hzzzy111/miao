@@ -268,24 +268,17 @@ var hzzzy111 = function(){
   }
 
   function indexOf(array, value, fromIndex = 0){
-    if(fromIndex >= 0){
-      for(var i = fromIndex; i < array.length; i++){
-        if(array[i] == value){
-          return i
-        }
-      }
-    }else{
-      for(var i = array.length - fromIndex; i > 0; i--){
-        if(array[i] == value){
-          return i
-        }
+    for(var i = fromIndex; i < array.length; i++){
+      if(array[i] == value){
+        return i
       }
     }
   }
 
   function initial(array){
     if(!arguments.length) return undefined
-    return array.pop()
+    array.pop()
+    return array
   }
 
   function intersection(...arrays){
@@ -304,6 +297,29 @@ var hzzzy111 = function(){
       }
     }
     return result
+  }
+
+  function join(array, separator = ","){
+    if(!array) return ""
+    var str = ""
+    for(var i = 0; i < array.length; i++){
+      str += array[i] + separator
+    }
+    return str
+  }
+
+  function last(array){
+    if(!arguments.length) return undefined
+    return array.pop()
+  }
+
+  function lastIndexOf(array, value, fromIdx = array.length - 1){
+    if(!array) return undefined
+    for(var i = fromIdx; i > 0; i--){
+      if(array[i] === value){
+        return i
+      }
+    }
   }
 
   return {
@@ -330,7 +346,10 @@ var hzzzy111 = function(){
     indexOf: indexOf,
     initial: initial,
     intersection: intersection,
-
+    join: join,
+    last: last,
+    lastIndexOf: lastIndexOf,
+    
   }
 
 }()
