@@ -197,22 +197,114 @@ var hzzzy111 = function(){
     return false
   }
 
-  function difference(array, values){
+  function difference(preArray, ...restArray){
     var ary = []
-    for(var i = 0; i < array.length; i++){
-      flags = false
-      for(var j = 0; j < array.length; j++){
-        if(array[i] == values[j]){
-          flags = true
+    for(var i = 0; i < preArray.length; i++){
+      var flags = false
+      for(var j = 0; j < restArray.length; j++){
+        for(var z = 0; z < restArray[j].length; z++){
+          if(preArray[i] == restArray[j][z]){
+            flags = true
+          }
         }
       }
       if(!flags){
-        ary.push(array[i])
+        ary.push(preArray[i])
       }
     }
     return ary
   }
 
+  function drop(array, number = 1){
+    for(var i = 0; i < number; i++){
+      array.shift(array[i])
+    }
+    return array
+  }
+
+  function dropRight(array, number = 1){
+    for(var i = 0; i < number; i++){
+      array.pop(array[i])
+    }
+    return array
+  }
+
+  function fill(array, value, start = 0, end = array.length){
+    for(var i = start; i < end ; i++){
+      array[i] = value
+    }
+    return array
+  }
+
+  function flatten(array) {
+    var result = []
+    for(var i = 0; i < array.length; i++){
+      var target = array[i]
+      if(Array.isArray(target)){
+        for(var j = 0; j < target.length; j++){
+          result.push(target[j])
+        }
+      }else{
+        result.push(array[i])
+      }
+    }
+    return result
+  }
+
+  function fromPairs(pairs){
+    var map = {}
+    for(var i = 0; i < pairs.length; i++){
+      var target = pairs[i]
+      map[target[0]] = target[1]
+    }
+    return map
+  }
+
+  function head(array){
+    if(!arguments.length){
+      return undefined
+    }
+    return array.shift()
+  }
+
+  function indexOf(array, value, fromIndex = 0){
+    if(fromIndex >= 0){
+      for(var i = fromIndex; i < array.length; i++){
+        if(array[i] == value){
+          return i
+        }
+      }
+    }else{
+      for(var i = array.length - fromIndex; i > 0; i--){
+        if(array[i] == value){
+          return i
+        }
+      }
+    }
+  }
+
+  function initial(array){
+    if(!arguments.length) return undefined
+    return array.pop()
+  }
+
+  function intersection(...arrays){
+    if(!arguments.length) return []
+    var result = []
+    for(var i = 0; i < arrays[0].length; i++){
+      for(var j = 1; j < arrays.length; j++){
+        var flags = false
+        if(arrays[j].includes(arrays[0][i])){
+          flags = true
+        }
+        break
+      }
+      if(flags){
+        result.push(arrays[0][i])
+      }
+    }
+    return result
+  }
 
   return {
     chunk: chunk,
@@ -228,7 +320,16 @@ var hzzzy111 = function(){
     unzip:unzip,
     every: every,
     some: some,
-    difference: difference
+    difference: difference,
+    drop: drop,
+    dropRight: dropRight,
+    fill: fill,
+    flatten: flatten,
+    fromPairs: fromPairs,
+    head: head,
+    indexOf: indexOf,
+    initial: initial,
+    intersection: intersection,
 
   }
 
