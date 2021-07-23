@@ -331,6 +331,17 @@ var hzzzy111 = function(){
     }
   }
 
+  function pull(array, ...values){
+    if(!array) return []
+    var arr = []
+    for(var i = 0; i < array.length; i++){
+      if(!values.includes(array[i]) && !arr.includes(array[i])){
+        arr.push(array[i])
+      }
+    }
+    return arr
+  }
+
   return {
     chunk: chunk,
     compact: compact,
@@ -359,6 +370,7 @@ var hzzzy111 = function(){
     last: last,
     lastIndexOf: lastIndexOf,
     nth: nth,
+    pull: pull,
 
   }
 
