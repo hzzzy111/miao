@@ -333,13 +333,59 @@ var hzzzy111 = function(){
 
   function pull(array, ...values){
     if(!array) return []
-    var arr = []
-    for(var i = 0; i < array.length; i++){
-      if(!values.includes(array[i]) && !arr.includes(array[i])){
-        arr.push(array[i])
+    for(var i = 0; i < values.length; i++){
+      if(array.includes(values[i])){
+        for(var j = 0; j  < array.length; j++){
+          if(array[j] === values[i]){
+            array.splice(j, 1)
+          }
+        }
       }
     }
-    return arr
+    return array
+  }
+
+  function pullAll(array, values){
+    if(!array) return []
+    for(var i = 0; i < values.length; i++){
+      if(array.includes(values[i])){
+        for(var j = 0; j  < array.length; j++){
+          if(array[j] === values[i]){
+            array.splice(j, 1)
+          }
+        }
+      }
+    }
+    return array
+  }
+
+  function reverse(array){
+    if(!array) return []
+    let prvNum = 0 , lastNum = array.length - 1
+
+    while(prvNum < lastNum){
+      var t = array[prvNum]
+      array[prvNum] = array[lastNum]
+      array[lastNum] = t
+      prvNum++, lastNum--
+    }
+    return array
+  }
+
+  function sortedIndex(array, value){
+    let prvNum = 0
+    let lastNum = array.length - 1
+    
+    while(true){
+      let midIdx = Math.floor( (prvNum + lastNum) / 2 )
+      if(midIdx === prvNum) return lastNum
+
+      if(array[midIdx] < value){
+        prvNum = midIdx
+      }else{
+        lastNum = midIdx
+      }
+    }
   }
 
   return {
@@ -371,6 +417,10 @@ var hzzzy111 = function(){
     lastIndexOf: lastIndexOf,
     nth: nth,
     pull: pull,
+    pullAll: pullAll,
+    reverse: reverse,
+    sortedIndex: sortedIndex,
+    
 
   }
 
