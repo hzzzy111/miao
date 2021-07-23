@@ -303,7 +303,11 @@ var hzzzy111 = function(){
     if(!array) return ""
     var str = ""
     for(var i = 0; i < array.length; i++){
-      str += array[i] + separator
+      if(i == array.length - 1){
+        str += array[i] + ""
+      }else{
+        str += array[i] + "" + separator
+      }
     }
     return str
   }
@@ -315,17 +319,25 @@ var hzzzy111 = function(){
 
   function lastIndexOf(array, value, fromIdx = array.length - 1){
     if(!array) return undefined
+    let target = -1
     for(var i = fromIdx; i > 0; i--){
       if(array[i] === value){
-        return i
+        target = i
+        return target
       }
     }
+    return target
   }
 
   function nth(array, num = 0){
     if(!array) return undefined
-    for(var i = 0; i < array.length; i++){
-      if(i === num){
+    if(num < 0){
+      var target = array.length + num
+    }else{
+      var target = num
+    }
+    for(var i = 0; i <= array.length - 1; i++){
+      if(i === target){
         return array[i]
       }
     }
@@ -420,7 +432,7 @@ var hzzzy111 = function(){
     pullAll: pullAll,
     reverse: reverse,
     sortedIndex: sortedIndex,
-    
+
 
   }
 
