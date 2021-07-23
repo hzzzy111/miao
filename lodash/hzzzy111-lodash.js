@@ -322,6 +322,15 @@ var hzzzy111 = function(){
     }
   }
 
+  function nth(array, num = 0){
+    if(!array) return undefined
+    for(var i = 0; i < array.length; i++){
+      if(i === num){
+        return array[i]
+      }
+    }
+  }
+
   return {
     chunk: chunk,
     compact: compact,
@@ -349,7 +358,8 @@ var hzzzy111 = function(){
     join: join,
     last: last,
     lastIndexOf: lastIndexOf,
-    
+    nth: nth,
+
   }
 
 }()
