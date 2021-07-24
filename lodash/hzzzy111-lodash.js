@@ -400,6 +400,39 @@ var hzzzy111 = function(){
     }
   }
 
+  function tail(array){
+    var length = array === 0 ? 0 : array.length
+    if(!length){
+      return []
+    }
+    var [, ...result ] = array    //字面量数组构造或字符串
+    return result
+  }
+
+  function take(array, num = 1){
+    var length = array === 0 ? 0 : array.length
+    var number = num > array.length ?  array.length : num
+    var result = []
+    if(!length){
+      return []
+    }
+    for(var i = 0; i  < number; i++){
+      result.push(array.shift())
+    }
+    return result
+  }
+
+  function takeRight(array, num = 1){
+    if(!array){
+      return []
+    }
+    var length = num > array.length - 1 ? 0 : array.length - num
+    for(var i = 0; i  < length; i++){
+      array.splice(0, 1)
+    }
+    return array
+  }
+
   return {
     chunk: chunk,
     compact: compact,
@@ -432,8 +465,10 @@ var hzzzy111 = function(){
     pullAll: pullAll,
     reverse: reverse,
     sortedIndex: sortedIndex,
-
-
+    tail: tail,
+    take: take
+    takeRight: takeRight,
+    
   }
 
 }()
