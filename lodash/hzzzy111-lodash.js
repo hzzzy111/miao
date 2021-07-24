@@ -466,9 +466,9 @@ var hzzzy111 = function(){
     reverse: reverse,
     sortedIndex: sortedIndex,
     tail: tail,
-    take: take
+    take: take,
     takeRight: takeRight,
-    
+
   }
 
 }()
