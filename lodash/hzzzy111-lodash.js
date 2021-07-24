@@ -467,7 +467,7 @@ var hzzzy111 = function(){
     sortedIndex: sortedIndex,
     tail: tail,
     take: take,
-    takeRight: takeRight,
+    takeRight: takeRight
 
   }
 
