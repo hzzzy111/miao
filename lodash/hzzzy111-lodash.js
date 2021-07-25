@@ -422,16 +422,7 @@ var hzzzy111 = function(){
     return result
   }
 
-  function takeRight(array, num = 1){
-    if(!array){
-      return []
-    }
-    var length = num > array.length - 1 ? 0 : array.length - num
-    for(var i = 0; i  < length; i++){
-      array.splice(0, 1)
-    }
-    return array
-  }
+  
 
   return {
     chunk: chunk,
@@ -467,7 +458,7 @@ var hzzzy111 = function(){
     sortedIndex: sortedIndex,
     tail: tail,
     take: take,
-    takeRight: takeRight
+
 
   }
 
