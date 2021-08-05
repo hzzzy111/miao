@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+  <style>
+    input[type = 'text']{
+      width: 291px;
+    }
+    font {
+      background-color: #9fcfff;
+      font-style: normal;
+    }
+    font:empty {
+      border-right: 1px dotted red;
+      margin-right: -1px;
+      background-color: transparent;
+    }
+    section {
+      width: 300px;
+      position: relative;
+      overflow: hidden;
+    }
+    section textarea,
+    section pre {
+      line-height: 1.3;
+      display: block;
+      padding: 5px;
+      border: 2px solid;
+      margin: 0;
+      height: 100%;
+      width: 100%;
+      box-sizing: border-box;
+      font-family: consolas;
+      font-size: 16px;
+      white-space: pre-wrap;
+      overflow-y: scroll;
+      overflow-x: hidden;
+    }
+    section textarea {
+      position: relative;
+      z-index: 8;
+      background-color: transparent;
+    }
+    section pre {
+      color: transparent;
+      position: absolute;
+      top: 0;
+    }
+    p#regError {
+      color: red;
+      margin: 0;
+      height: 1em;
+      margin-bottom: 10px;
+    }
+  </style>
+
+  <!-- onkeyup获取鼠标键值 -->
+  请输入正则表达式：
+  <label><input type="checkbox" checked onclick="run()" id="global">g</label>
+  <label><input type="checkbox" onclick="run()"  id="multiline">m</label>
+  <label><input type="checkbox" onclick="run()" id="ignoreCase">i</label><br>
+  <input type="text" id="reg" onkeyup="run()"  value="fo."><br>
+  请输入内容:<br>
+  <p id="regError"></p>
+  <section>
+    <textarea id="strInput" rows="10" cols="30" opkeypress="run()">
+woshi sbsfobsbsbsbsb
+    sbsbfosbsbfosbfoosb
+      aaafooooaafooaaaa
+          qqqqfooqqq
+            aaaaaaafooooo
+    </textarea>
+    <pre id="result">
+    </pre>
+  </section>
+
+
+  <script>
+    function run(){
+      //正则框
+      var regSource = reg.value
+      //获取后面的属性
+      var flags = getFlags()
+
+      if(regSource == ''){
+        resultHTML = ""
+        regError.innerHTML = '内容为空'
+        return
+      }
+      try{
+        //这里会把regError的文本清空，不然input为空，上面会输出内容（需要清空）
+        var re = new RegExp(regSource, flags)
+        regError.innerHTML = ''
+      }catch(e){
+        console.log(e)
+        //输出错误的信息到页面
+        regError.innerHTML = e.message
+        result.innerHTML = ''
+        return
+      }
+
+      //内容框
+      var sreSrouce = strInput.value
+      var match
+      if(re.global){
+        var resHTML = ''
+        //将初始的lastIndex先保存下来
+        var prevLastIdx = re.lastIndex
+        //exec可以匹配每个与regSource相匹配的字符转，并且能寻找下一个  
+        while (match = re.exec(sreSrouce)) {
+          //match获取与regSource相匹配的第一个字符的下标
+          resHTML += sreSrouce.slice(prevLastIdx, match['index'])
+          //获取完整的相匹配字符串
+          resHTML += '<font>' + match[0] + '</font>'
+          //往下一个寻找
+          prevLastIdx = re.lastIndex
+          //零宽断言
+          //当循环到最后一次时，会返回一个match[0]是一个空字符串，这时循环就会报错，加了零宽断言可以跳出循环。
+          if (match[0] == ''){
+            re.lastIndex++
+          }
+        }
+        //最后还剩几个没匹配
+        resHTML += sreSrouce.slice(prevLastIdx)
+        result.innerHTML = resHTML
+      }
+      //因为不是global，所以不需要re.lastIndex
+      else{
+        var resHTML = ''
+        //将初始的lastIndex先保存下来
+        var prevLastIdx = re.lastIndex
+        match = re.exec(sreSrouce)
+        resHTML += sreSrouce.slice(prevLastIdx, match['index'])
+        resHTML += '<font>' + match[0] + '</font>'
+        //match.index能获取没与regSource匹配前的下标
+        resHTML += sreSrouce.slice(match.index + match[0].length)
+        result.innerHTML = resHTML
+      }
+    }
+
+    run()
+
+    function getFlags(){
+      var flags = ''
+      if(global.checked){
+        flags += 'g'
+      }
+      if(ignoreCase.checked){
+        flags += 'i'
+      }
+      if(multiline.checked){
+        flags += 'm'
+      }
+      return flags
+    }
+  </script>
+
+</body>
+</html>
