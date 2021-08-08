@@ -1,4 +1,106 @@
 var hzzzy111 = function(){
+  
+  function parseJson(str){
+    var i = 0
+    return parseValue()
+    function parseValue(){
+      var res = str[i]
+  
+      if(res == '"'){
+        return parseString()
+      }
+      if(res == '['){
+        return parseArray()
+      }
+      if(res == '{'){
+        return parseObject()
+      }
+      if(res == 't'){
+        return parseTrue()
+      }
+      if(res == 'f'){
+        return parseFlase()
+      }
+      if(res == 'n'){
+        return parseNull()
+      }
+      return parseNumber()
+    }
+  
+    function parseTrue(){
+      i += 4
+      return true
+    }
+    
+    function parseFlase(){
+      i += 5
+      return false
+    }
+  
+    function parseNull(){
+      i += 4
+      return null
+    }
+  
+    function parseString(){
+      i++
+      var target = ''
+      while (str[i] !== '"') {
+        target += str[i++]
+      }
+      i++
+      return target
+    }
+  
+
+    
+    function parseNumber(){
+      var target = ''
+      while (str[i] > '0' && str[i] < "9") {
+        target += str[i++]
+      }
+      return Number(target)
+    }
+  
+    //[1,"false",false]
+    function parseArray(){
+      i++;
+      var ary = []
+      while(str[i] !== ']'){
+        var arg = parseValue()
+        ary.push(arg)
+        if(str[i] == ','){
+          i++
+        }else if(str[i] == ']'){
+          break
+        }
+      }
+      i++
+      return ary
+    }
+  
+  //'{"a":1,"b":[1,2,3],"c":{"x":1,"yyy":false}}'
+    function parseObject(){
+      i++;
+      var map = {}
+      
+      while(str[i] !== '}'){
+        var key = parseString() //JSON规定了，属性名需要""
+        i++   //:
+        var val = parseValue()
+        map[key] = val
+        if(str[i] == ','){
+          i++
+        }else if(str[i] == '}'){
+          break
+        }
+      }
+  
+      return map
+    }
+  
+  }
+  
   function chunk(array, size= 1) {
     var ary = [], count = 0
     ary.push([])
@@ -425,6 +527,7 @@ var hzzzy111 = function(){
   
 
   return {
+    parseJson: parseJson,
     chunk: chunk,
     compact: compact,
     unique: unique,
