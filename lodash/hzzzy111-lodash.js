@@ -51,8 +51,6 @@ var hzzzy111 = function(){
       i++
       return target
     }
-  
-
     
     function parseNumber(){
       var target = ''
@@ -100,6 +98,8 @@ var hzzzy111 = function(){
     }
   
   }
+ 
+  
   
   function chunk(array, size= 1) {
     var ary = [], count = 0
