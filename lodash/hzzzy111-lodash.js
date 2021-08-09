@@ -51,7 +51,7 @@ var hzzzy111 = function(){
       i++
       return target
     }
-    
+
     function parseNumber(){
       var target = ''
       while (str[i] > '0' && str[i] < "9") {
@@ -65,7 +65,7 @@ var hzzzy111 = function(){
       i++;
       var ary = []
       while(str[i] !== ']'){
-        var arg = parseValue()
+        var arg = parseValue(str[i])
         ary.push(arg)
         if(str[i] == ','){
           i++
@@ -78,6 +78,7 @@ var hzzzy111 = function(){
     }
   
   //'{"a":1,"b":[1,2,3],"c":{"x":1,"yyy":false}}'
+  //'{"a":[1,2]}'
     function parseObject(){
       i++;
       var map = {}
@@ -89,18 +90,16 @@ var hzzzy111 = function(){
         map[key] = val
         if(str[i] == ','){
           i++
-        }else if(str[i] == '}'){
-          break
         }
       }
-  
+      i++
       return map
     }
   
   }
  
   
-  
+
   function chunk(array, size= 1) {
     var ary = [], count = 0
     ary.push([])
