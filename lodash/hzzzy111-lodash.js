@@ -65,7 +65,7 @@ var hzzzy111 = function(){
       i++;
       var ary = []
       while(str[i] !== ']'){
-        var arg = parseValue(str[i])
+        var arg = parseValue()
         ary.push(arg)
         if(str[i] == ','){
           i++
