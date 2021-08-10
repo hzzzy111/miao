@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+  <style>
+    #man{
+      width: 20px;
+      height: 20px;
+      background-color: red;
+      
+      position: absolute;
+    }
+    #male{
+      width: 20px;
+      height: 20px;
+      background-color: rgb(255, 0, 212);
+      
+      position: absolute;
+    }
+  </style>
+</head>
+<body>
+  
+<div id="man" style=" left: 40px; top: 40px;"></div>
+<div id="male" style=" left: 80px; top: 80px;"></div>
+
+<script> 
+
+  var man = document.querySelector('#man')
+  
+
+  var vx = 0
+  var vy = 0
+  var leftPress = false, rightPress = false
+  var topPress = false, downPress = false
+
+  document.addEventListener('keydown', e => {
+    console.log(e.keyCode == 'ArrowLeft')
+    //left
+    if(e.key == 'ArrowLeft'){
+      vx = -1
+      leftPress = true
+    }
+    //right
+    if(e.key == 'ArrowRight'){
+      vx = 1
+      rightPress = true
+    }
+    //up
+    if(e.key == 'ArrowUp'){
+      vy = -1
+      topPress = true
+    }
+    //down
+    if(e.key == 'ArrowDown'){
+      vy = 1
+      downPress = true
+    }
+
+  })
+
+  document.addEventListener('keyup', e => {
+    if(e.key == 'ArrowRight'){
+      rightPress = false
+      if(rightPress){
+        vx = -1
+      }else{
+        vx = 0
+      }
+    }
+    if(e.key == 'ArrowLeft'){
+      leftPress = false
+      if(leftPress){
+        vx = 1
+      }else{
+        vx = 0
+      }
+    }
+    if(e.key == 'ArrowUp'){
+      topPress = false
+      if(topPress){
+        vy = 1
+      }else{
+        vy = 0
+      }
+    }
+    if(e.key == 'ArrowDown'){
+      
+      DownPress = false
+      if(DownPress){
+        vy = -1
+      }else{
+        vy = 0
+      }
+    }
+  })
+  
+  var male = document.querySelector('#male')
+  var maleX = 0
+  var maleY = 0
+  var leftPress2 = false, rightPress2 = false
+  var topPress2 = false, downPress2 = false
+
+  document.addEventListener('keydown', e => {
+    console.log(e.keyCode == 'ArrowLeft')
+    //left
+    if( e.keyCode == '65'){
+      maleX = -1
+      leftPress2 = true
+    }
+    //right
+    if( e.keyCode == '68'){
+      maleX = 1
+      rightPress2 = true
+    }
+    //up
+    if( e.keyCode == '87'){
+      maleY = -1
+      topPress2 = true
+    }
+    //down
+    if( e.keyCode == '83'){
+      maleY = 1
+      downPress2 = true
+    }
+
+  })
+
+  document.addEventListener('keyup', e => {
+    if(e.keyCode == '65'){
+      rightPress2 = false
+      if(rightPress2){
+        maleX = -1
+      }else{
+        maleX = 0
+      }
+    }
+    if(e.keyCode == '68'){
+      leftPress2 = false
+      if(leftPress2){
+        maleX = 1
+      }else{
+        maleX = 0
+      }
+    }
+    if(e.keyCode == '87'){
+      topPress2 = false
+      if(topPress2){
+        maleY = 1
+      }else{
+        maleY = 0
+      }
+    }
+    if(e.keyCode == '83'){
+      
+      DownPress2 = false
+      if(DownPress2){
+        maleY = -1
+      }else{
+        maleY = 0
+      }
+    }
+  })
+
+  var last = 0
+  
+  requestAnimationFrame(function move(time){
+    var timeDiff = time - last
+    last = time
+
+    man.style.left = parseFloat(man.style.left) + vx * timeDiff * 0.5 + 'px'
+    man.style.top = parseFloat(man.style.top) + vy * timeDiff * 0.5 + 'px'
+
+    male.style.left = parseFloat(male.style.left) + maleX * timeDiff * 0.6 + 'px'
+    male.style.top = parseFloat(male.style.top) + maleY * timeDiff * 0.5 + 'px'
+
+    requestAnimationFrame(move)
+  })
+ 
+</script>
+
+
+</body>
+</html>

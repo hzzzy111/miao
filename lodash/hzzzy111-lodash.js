@@ -1,5 +1,5 @@
 var hzzzy111 = function(){
-  
+//简单json解析器，没有处理空格，  只处理正确信息
   function parseJson(str){
     var i = 0
     return parseValue()
@@ -99,6 +99,7 @@ var hzzzy111 = function(){
   }
  
   
+//
 
   function chunk(array, size= 1) {
     var ary = [], count = 0

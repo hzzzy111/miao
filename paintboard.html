@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+  <style>
+    /* .dot{
+      width: 6px;
+      height: 6px;
+      background-color: 6px;
+      position: absolute;
+      border-radius: 75%;
+    } */
+    svg{
+      border: 1px solid darksalmon;
+      width: 300px;
+      height: 300px;
+      
+    }
+    input{
+      display: block;
+    }
+    
+  </style>
+</head>
+<body>
+  
+  <svg></svg>
+  <input type="color" id="colorInput">
+  <input type="range" id="rangeInput" min="1" max="5" itemid="rangeInput">
+
+<script> 
+  var svg = document.querySelector('svg')
+  var last = null
+
+  //鼠标点击执行函数
+  document.addEventListener('mousedown',function(e){
+    console.log(e)  
+    function drawDot(e){    
+        var line = document.createElementNS('http://www.w3.org/2000/svg', 'line')
+        var colorInput = document.querySelector('#colorInput').value
+        var rangeInput = document.querySelector('#rangeInput').value
+        var pos = mousePos(svg)
+    
+        
+        if(last == null){
+          line.setAttribute('x1', pos.x)
+          line.setAttribute('y1', pos.y)
+        }else{
+          line.setAttribute('x1', last.x)
+          line.setAttribute('y1', last.y)
+        }
+
+        //获取上一次的系x，y
+        line.setAttribute('x2', pos.x)
+        line.setAttribute('y2', pos.y)
+        line.setAttribute('stroke', colorInput)
+        line.setAttribute('stroke-width', rangeInput)
+        line.setAttribute('stroke-linecap', 'round')
+        
+        
+        //让这次画的x1，y1借助上次的x2，y2
+        last = pos
+
+        svg.append(line)
+      }
+    //松开点击就解绑
+    document.addEventListener('mouseup',function once(){
+      last = null
+      document.removeEventListener('mouseup', once)
+      document.removeEventListener('mousemove', drawDot)
+    })
+    //移动就执行函数
+    document.addEventListener('mousemove', drawDot)
+
+  })
+
+
+  //ctrl+z删除最后一个元素
+  document.addEventListener('keydown', e => {
+    var lastChild = svg.childNodes
+    console.log(lastChild)
+    if(e.keyCode == 90 && e.ctrlKey){
+      for(var i = lastChild.length - 1; i >= 0; i--){
+        svg.removeChild(lastChild[i])
+        break
+      }
+    }
+  })
+
+  function mousePos(node) {
+      var box = node.getBoundingClientRect()
+
+      return {
+        x: window.event.clientX - box.x,
+        y: window.event.clientY - box.y,
+      }
+    }
+
+</script>
+
+  
+
+</body>
+</html>
