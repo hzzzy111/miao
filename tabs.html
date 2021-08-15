@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+     .tab{
+      width: 500px;
+      height: 200px;
+      margin: auto
+    }
+    ul{
+      padding: 0;
+    }
+    li{
+      display: inline-block;
+      cursor: pointer;
+      padding-right: 30px;
+      background-color: plum;
+    }
+    li:hover{
+      background-color: white;
+    }
+    span{
+      position: absolute;
+      /* display: none; */
+      opacity: 0;
+      
+    }
+    #tab-content{
+      position: relative;
+    }
+  </style>
+</head>
+<body>
+  
+  <!-- 3 -->
+  <div class="tab">
+    <div id="my-tab">
+      <ul>
+        <li>Home</li>
+        <li>Profile</li>
+        <li>Contact</li>
+      </ul>
+    </div>
+    <div id="tab-content">
+      <span style="opacity: 1;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque facere, mollitia ea incidunt quasi delectus quae at corporis enim doloribus consequatur ratione, cupiditate expedita, repellat quas animi magnam quis aliquam!</span>
+      <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde, illum error quaerat ducimus ipsam quia accusantium cupiditate, ratione dicta earum magnam voluptatem non reiciendis fugiat quo, et nostrum delectus quasi?</span>
+      <span >Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis, eaque dolore aliquam molestias facere rem porro accusantium quis dolores incidunt suscipit pariatur impedit, alias repudiandae debitis fuga magnam ullam fugit.</span>
+    </div>
+  </div>
+
+  <div id="a"></div>
+  <script>
+    
+    var myTab = document.querySelector('ul')
+    var list = Array.from( myTab.children )
+    var tabContent = document.querySelector('#tab-content')
+    var content = Array.from( tabContent.children )
+  
+    myTab.addEventListener('mousedown', function(e){
+      console.log('aa')
+      var target = e.target
+      for(var i = 0; i < list.length; i++){
+        content[i].style.opacity = 0
+        if(e.target == list[i]){
+          content[i].style.opacity =  1
+        }
+      }
+      
+
+    })
+  
+  </script>
+
+</body>
+</html>

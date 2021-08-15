@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+  
+
+  <!-- <script>
+    //获得这一次点击的时间与上一次的差。
+    //获得上一次与上上次的差
+    var lastTime1 = 0
+    var lastTime2 = 0
+    var lastTime3 = 0
+
+    window.addEventListener('click', e => {
+      console.log(Date.now())
+      var preventTime = Date.now()
+
+      //要取他们的区间值（两下加一下）
+      if(preventTime - lastTime2 < 300 &&  lastTime2 - lastTime1 > 300){
+        console.log('aaa')
+      }
+
+      lastTime1 = lastTime2
+      lastTime2 = lastTime3
+      lastTime3 = preventTime
+    })
+
+  </script> -->
+
+  <!-- <script>
+
+    var lastTime = 0, c = 0, count = 1
+
+    window.addEventListener('click', e => {
+      console.log('click')
+      var time = Date.now()
+      
+      clearTimeout(count)
+      //200毫秒以内算连击
+      count = setTimeout(() => {
+        c = 1
+      }, 200)
+
+      //第一次就直接跳过
+      if(time - lastTime < 200){
+        c++
+      }
+      if(c == 2){
+        console.log('click 2')
+      }
+      if(c == 3){
+        console.log('click 3')
+      }
+      if(c == 4){
+        console.log('click 4')
+      }
+
+      lastTime = time
+    })
+
+  </script> -->
+
+  <script>
+    //先设置为true，这段时间内点击三下输出结果。（延迟flags变为false）
+    var flags = false
+    window.addEventListener('dblclick', e => {
+      flags = true
+      setTimeout(() => {
+        flags = false
+      }, 300)
+    })
+
+    window.addEventListener('click', e => {
+      if(flags){
+        console.log('triple click')
+      }
+    })
+
+  </script>
+
+
+
+</body>
+</html>

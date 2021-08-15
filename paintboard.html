@@ -28,78 +28,137 @@
 </head>
 <body>
   
-  <svg></svg>
+  <svg xmlns="http://www.w3.org/2000/svg"></svg>
+  <button onclick=" tool='line' ">直线</button > 
+  <button onclick=" tool='circle' ">○</button>
   <input type="color" id="colorInput">
-  <input type="range" id="rangeInput" min="1" max="5" itemid="rangeInput">
+  <input type="range" id="rangeInput" min="1" max="5">
+  <span class="line-weight">2</span>
+  <button onclick="save()">save</button>
 
 <script> 
   var svg = document.querySelector('svg')
   var last = null
+  var span = document.querySelector('span')
+  var colorInput = document.querySelector('#colorInput')
+  var rangeInput = document.querySelector('#rangeInput')
+  var tool = 'line'
+
 
   //鼠标点击执行函数
   document.addEventListener('mousedown',function(e){
-    console.log(e)  
-    function drawDot(e){    
-        var line = document.createElementNS('http://www.w3.org/2000/svg', 'line')
-        var colorInput = document.querySelector('#colorInput').value
-        var rangeInput = document.querySelector('#rangeInput').value
-        var pos = mousePos(svg)
-    
         
-        if(last == null){
-          line.setAttribute('x1', pos.x)
-          line.setAttribute('y1', pos.y)
-        }else{
-          line.setAttribute('x1', last.x)
-          line.setAttribute('y1', last.y)
-        }
+    if(tool == 'line'){
+      var polyline = document.createElementNS('http://www.w3.org/2000/svg', 'polyline')
 
-        //获取上一次的系x，y
-        line.setAttribute('x2', pos.x)
-        line.setAttribute('y2', pos.y)
-        line.setAttribute('stroke', colorInput)
-        line.setAttribute('stroke-width', rangeInput)
-        line.setAttribute('stroke-linecap', 'round')
+      //每次执行点击时间都会新建pos和points。每次的鼠标点击到松开就是一条线为一组
+      //点击的创建（点，属性，获取点击屏幕时的x，y值），移动的增加points（点的数量），到松开左键（解绑自身与move） 。  这样为一组
+      var pos = mousePos(svg)  
+      polyline.setAttribute('stroke', colorInput.value)
+      polyline.setAttribute('fill', 'none') 
+      polyline.setAttribute('stroke-width', rangeInput.value)
+      polyline.setAttribute('stroke-linecap', 'round')  
+      
+      var points = ` ${pos.x},${pos.y} `
+      
+      svg.append(polyline) 
         
-        
-        //让这次画的x1，y1借助上次的x2，y2
-        last = pos
-
-        svg.append(line)
+      //移动时这里就开始这行了
+      function drawDot(e){    
+        pos = mousePos(svg)  
+        points += ` ${pos.x},${pos.y} `
+        polyline.setAttribute('points', points)
       }
-    //松开点击就解绑
-    document.addEventListener('mouseup',function once(){
-      last = null
-      document.removeEventListener('mouseup', once)
-      document.removeEventListener('mousemove', drawDot)
-    })
-    //移动就执行函数
-    document.addEventListener('mousemove', drawDot)
 
+      //松开点击就解绑
+      document.addEventListener('mouseup',function once(){
+        last = null
+        document.removeEventListener('mouseup', once)
+        document.removeEventListener('mousemove', drawDot)
+      })
+      //移动就执行函数
+      document.addEventListener('mousemove', drawDot)
+    }
+
+    //画圆形  cx 属性定义一个中心点的 x 轴坐标。  rx 属性用于定义水平轴向的圆角半径尺寸。
+    if(tool == 'circle'){
+
+      var ellipse = document.createElementNS('http://www.w3.org/2000/svg', 'ellipse')
+
+      ellipse.setAttribute('stroke', colorInput.value)
+      ellipse.setAttribute('fill', 'none') 
+      ellipse.setAttribute('stroke-width', rangeInput.value)
+      ellipse.setAttribute('fill', 'none')
+      svg.append(ellipse)
+
+      var posStart = mousePos(svg)
+
+      //移动至要执行的行为
+      function drawCircle(){
+        var posLast = mousePos(svg)
+        //从页面的最左端出发，两值相加除以2后，得到中心店
+        var cx = (posStart.x + posLast.x) / 2
+        var cy = (posStart.y + posLast.y) / 2
+        //从页面的最左端出发，两值相减的绝对值除以2，得到直径
+        var rx = (Math.abs(posStart.x - posLast.x)) / 2
+        var ry = (Math.abs(posStart.y - posLast.y)) / 2
+        ellipse.setAttribute('cx', cx)
+        ellipse.setAttribute('cy', cy)
+        ellipse.setAttribute('rx', rx)
+        ellipse.setAttribute('ry', ry)
+      }
+
+      document.addEventListener('mouseup', function once(){
+        document.removeEventListener('mouseup', once)
+        document.removeEventListener('mousemove', drawCircle)
+      })
+      document.addEventListener('mousemove', drawCircle)
+    } 
+
+  })
+
+  //显示线段此时的粗细，并用数字显示出来
+  document.addEventListener('input', function(e){
+    console.log('aaa')
+    span.textContent = rangeInput.value
   })
 
 
   //ctrl+z删除最后一个元素
   document.addEventListener('keydown', e => {
-    var lastChild = svg.childNodes
-    console.log(lastChild)
-    if(e.keyCode == 90 && e.ctrlKey){
-      for(var i = lastChild.length - 1; i >= 0; i--){
-        svg.removeChild(lastChild[i])
-        break
+    if(svg.childNodes.length !== 0){
+      if(e.keyCode == 90 && e.ctrlKey){
+        svg.removeChild(svg.lastChild)
       }
     }
   })
 
+  // 获取点击屏幕时的x，y值
   function mousePos(node) {
-      var box = node.getBoundingClientRect()
+    var box = node.getBoundingClientRect()
 
-      return {
-        x: window.event.clientX - box.x,
-        y: window.event.clientY - box.y,
-      }
+    return {
+      x: window.event.clientX - box.x,
+      y: window.event.clientY - box.y,
     }
+  }
 
+  //保存页面
+  function save(){
+    var svgSource = svg.outerHTML
+    var blob = new Blob(['<?xml version="1.0" standalone="no" ?>', svgSource], {type: 'image/xml+svg'})
+    var url = URL.createObjectURL(blob)
+    var anchor = document.createElement('a')
+    anchor.href = url
+    anchor.download = 'tiancaide.svg'
+    anchor.click()
+  }
+
+  //退出提示
+  window.addEventListener('beforeunload', e => {
+    e.preventDefault()
+    event.returnValue = 'nengxingde' 
+  })
 </script>
 
   
