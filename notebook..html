@@ -95,16 +95,19 @@
     //设置对象的名字，并且获取整个对象
     let notes = JSON.parse( localStorage.getItem( 'notes' ) ) || new Object()
     let title = JSON.parse( localStorage.getItem( 'title' ) ) || new Object()
-    let target
+    
+    //新建一个全局作用域去保存点击事件
+    let aa
     
     //点击标签的行为
-    listEle.addEventListener('mousedown', function listdown(e) {
+    listEle.addEventListener('mousedown', e => {
       if(notes.hasOwnProperty(e.target.id)){
+        aa = e.target
           //如果第一个不存在于notes并且点击了其他的选项,删除第一项
         let firstEle = listEle.firstElementChild
         target = e.target
-        //id不存在于notes， 第一个id不存在于notes。
-        if(notes.hasOwnProperty(target.id) && target != firstEle && !notes.hasOwnProperty(firstEle.id)){
+        //id不存在于notes
+        if(target != firstEle && !notes.hasOwnProperty(firstEle.id)){
           listEle.removeChild(firstEle)
         }
         //这里监听的时间是list，  所以点击标签外找不到target.id
@@ -121,12 +124,17 @@
           function deleteEle(){
             // if(window.confirm('你确定要删除吗？')){
             // }
-            let id = e.target.id
-            listEle.removeChild(e.target)
-            
-            delete notes[String(id)]
-            delete title[String(id)]          
-            saveToStorage()
+            // debugger;
+
+            //新建一个全局作用域去保存点击事件,让它每次执行只删一个aa这一个
+            if(aa){
+              let id = aa.id
+              listEle.removeChild(aa)
+              aa=null
+              delete notes[String(id)]
+              delete title[String(id)]          
+              saveToStorage()
+            }
     
           }
 

@@ -524,7 +524,91 @@ var hzzzy111 = function(){
     return result
   }
 
+
+  function differenceBy(arys, ...values){
+    //把拆散的参数变为数组
+    let str = values.pop()
+    let target = []
+    let res = [], result = []
+    for(var i = 0; i < values.length; i++){
+      target = target.concat(values[i])
+    }
+    console.log(target)
+    if(typeof str == 'string'){
+      res = target.map(it => it[str])
+      for(var key of arys){
+        if(res.includes(key[str])){
+          result.push(key)
+        }
+      }
+    }
+
+    if(typeof str == 'function'){
+      for(var i = 0; i < target.length; i++){
+        res.push(parseInt(target[i]))
+      }
+      
+      for(var key of arys){
+        if(res.includes(str(parseInt(key)))){
+          result.push(key)
+        }
+      }
+    }
+
+    return result
+  }
+
+  function isEqual(value, other){
+
+    if(value == other){
+      return true
+    }
+
+    if(typeof value !== typeof other ){
+      return false
+    }else{
+    //数组、对象都能进
+   
+      if(typeof value == 'object'){
+        if(value.length !== other.length){
+          return false
+        }
+
+        if(!(Object.keys(value).length == Object.keys(other).length)){
+          return false
+        }
+
+        for(let key in value){
+          if(!(key in other)){
+            return false
+          }
+          if(!isEqual(value[key], other[key])){
+            return false
+          }
+        }
+        return true
+        
+      }
+
+    }
+  }
   
+  function differenceWith(array, values, comparator){
+    let target, res = [], flags
+    values.forEach(it => {
+      target = it
+    })
+    for(var i = 0; i < array.length; i++){
+      for(var key in array[i]){
+        flags =  false
+        if(!comparator(array[i][key], target[key])){
+          flags = true
+        }
+      }
+      if(flags) res.push(array[i])
+    }
+    return res
+  } 
 
   return {
     parseJson: parseJson,
@@ -561,7 +645,9 @@ var hzzzy111 = function(){
     sortedIndex: sortedIndex,
     tail: tail,
     take: take,
-
+    differenceBy: differenceBy,
+    isEqual: isEqual,
+    differenceWith: differenceWith,
 
   }
 
