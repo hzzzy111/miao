@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+  <textarea name="" id="text" cols="30" rows="10">
+    var a = 1
+    var b = 2
+    var c = 0
+
+    console.log(a)
+    console.log(b)
+
+    c = a * b
+  </textarea>
+  <button onclick="run()">click</button>
+  <p id="result"></p>
+
+
+  <script>
+      function run(){
+        // debugger;
+        let console = {
+          log: function(...args){
+            window.console.log(...args)
+            resultValue.textContent += args.join(' ') + '\n'
+          }
+        }
+        
+        let textValue = document.querySelector('textarea')
+        let resultValue = document.querySelector('p')
+        let code = eval(textValue.value)
+        resultValue.textContent += code
+
+      }
+
+
+  </script>
+
+
+</body>
+</html>

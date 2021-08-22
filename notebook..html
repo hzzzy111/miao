@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>    
+    *{
+      margin: 0;
+      padding: 0;
+    }
+
+    .head{
+      background-color: #827265;
+      height: 62px;
+    }
+
+    html, body, .main-content {
+      height: 100%;
+      width: 100%;
+    }
+    
+    .main-content{
+      display: flex;
+      width: 100%;
+    }
+
+    textarea{
+      width: 60%; 
+      height: 100%;
+      background-color: rgb(251, 247, 231);
+      border: 1px solid rgba(0, 0, 0, .1);
+      border-bottom: none;
+      resize: none;
+    }
+    textarea:focus {
+      outline: none;
+    }
+
+    button{
+      vertical-align: top;
+      width: 91px;
+      height: 36px;
+    }
+
+    .edge{
+      width: 100px;
+      border: 1px solid #e8e2d7;
+      height: 100%;
+      background: #f4f0e5;
+    }
+
+    #list{
+      width: 40%;
+      height: 100%;
+      border-right: 1px solid #dcd6ca;
+      background-color: rgb(251, 247, 231);
+    }
+    .listClass{
+      height: 50px;
+      width: 100px;
+    }
+    .list-child{
+      width: 100%;
+      height: 50px;
+    }
+    .list-child:hover{
+      background-color: rgb(245, 236, 225);
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="head">
+    
+  </div>
+
+  <div class="main-content">
+    
+    <div id="list"></div>
+    <div class="edge">
+      <button onclick="btn()">➕</button>
+      <button id="delete">delete</button>
+    </div>
+    <textarea name="" id="" cols="30" rows="10"></textarea>
+  </div>
+
+  <script>
+    // debugger;
+    let listEle = document.getElementById('list')
+    let textareaEle = document.querySelector('textarea')
+    let clean = document.querySelector('#delete')
+    //设置对象的名字，并且获取整个对象
+    let notes = JSON.parse( localStorage.getItem( 'notes' ) ) || new Object()
+    let title = JSON.parse( localStorage.getItem( 'title' ) ) || new Object()
+    let target
+    
+    //点击标签的行为
+    listEle.addEventListener('mousedown', function listdown(e) {
+      if(notes.hasOwnProperty(e.target.id)){
+          //如果第一个不存在于notes并且点击了其他的选项,删除第一项
+        let firstEle = listEle.firstElementChild
+        target = e.target
+        //id不存在于notes， 第一个id不存在于notes。
+        if(notes.hasOwnProperty(target.id) && target != firstEle && !notes.hasOwnProperty(firstEle.id)){
+          listEle.removeChild(firstEle)
+        }
+        //这里监听的时间是list，  所以点击标签外找不到target.id
+        if(target.id !== 'list'){
+          textareaEle.value = notes[target.id]
+          //去除再次之前的所有颜色
+          Array.from(listEle.childNodes).map(it => {
+            it.style.removeProperty("background-color");
+          })
+          target.style.backgroundColor = 'rgb(245, 236, 225)'
+          
+          //删除一个元素
+          
+          function deleteEle(){
+            // if(window.confirm('你确定要删除吗？')){
+            // }
+            let id = e.target.id
+            listEle.removeChild(e.target)
+            
+            delete notes[String(id)]
+            delete title[String(id)]          
+            saveToStorage()
+    
+          }
+
+          clean.addEventListener('mousedown', deleteEle)
+          clean.addEventListener('mouseup', function once(){
+            //点鼠标松开要解除的是刚刚的点击事件
+            clean.removeEventListener('mousedown', deleteEle)
+            clean.removeEventListener('mouseup',once)
+          })
+
+        } 
+      }
+      
+      // e.target.addEventListener('mouseup', function listup() {
+      //   listEle.removeEventListener('mousedown', listdown)
+      //   e.target.removeEventListener('mouseup', listup)
+      // })
+     
+    } )
+
+    
+    //写字的地方只需要做一件事，  就是当创建新的标签时，  要给他标题内容赋值。  
+    //为什么只做一件事?   每当它一个标签，  如果他没有在文本输入内容，  并且没有保存在notes对象里，  这个标签会自动删除
+    textareaEle.addEventListener('change', () => {   
+      let targetId = listEle.firstElementChild
+      targetId.textContent = textareaEle.value.slice(0, 7)
+      notes[targetId.id] = textareaEle.value
+      title[targetId.id] = targetId.textContent
+      saveToStorage()
+    })   
+
+    //判断网页在刷新或者刚启动时，有没有内容
+    if(Object.keys(title).length != 0){
+      for(var key in title){
+        addToList(key)  
+        listEle.firstElementChild.textContent =  title[key]
+      }
+      textareaEle.value = notes[listEle.firstElementChild.id]
+    }else{
+      addToList()
+    }
+
+
+    //在设置过的textare，或者添加新的标签等等操作，就调用此数组，更新对象的保存于本地的值
+    function saveToStorage(){
+      localStorage.setItem('notes', JSON.stringify(notes))
+      localStorage.setItem('title', JSON.stringify(title))
+    }
+    
+
+    //添加标签
+    function addToList(key){
+
+      //每创建一个标签都要给它赋值id，  并且作为它存储于本地的key（id）值
+      let newDivs = document.createElement('div')
+      let divId = `id-${(Math.random() * 1000000000).toString().slice(0, 7)}`
+      newDivs.className = 'list-child' 
+      newDivs.id = divId
+      if(key){
+        newDivs.id  = key
+      }
+      
+      //如果是一个标签都没有，  就初始设置一个标签， 并命名为（新建文件）,  并且要在notes里把idshz了。
+      if(listEle.childNodes.length == 0 && !key){        
+        listEle.append(newDivs)
+        //创建第一个不能使用变量
+        listEle.firstElementChild.textContent = '新建文件'
+        notes[newDivs.id] = ''
+      }
+      else{
+        //把标签插入新的标签前
+        listEle.insertBefore(newDivs, listEle.firstElementChild)
+      }
+    }
+    
+
+    //按钮发生点击时发生的行为
+    function btn(name){
+      if(!textareaEle.value == ''){
+        // debugger;
+        addToList()
+        textareaEle.value = ''
+        listEle.firstElementChild.textContent = '新建文件'
+      }
+    }
+
+  </script>
+
+</body>
+</html>

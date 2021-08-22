@@ -1,0 +1,120 @@
+<div id="box" ></div>
+<button id="next">next</button>
+<button id="autoPlay">Auto play</button>
+<!-- <button onclick="init()">initial</button> -->
+
+<!-- 思路: 1、先获取一个画好随机细胞的页面（input.checked）保存在数组arr
+      2、创建点击按钮
+      3、创建一个函数，用来输出arr的布尔值
+      4、创建两个函数，一个判断他周围8个格子的此时布尔值，一个用来判断细胞的状态（计算出前面九宫格为一组的细
+      胞有多少个存活的）（创建一个数组保留改变后的细胞）（参数是 让每项都是布尔值的arr）
+      5、创建一个函数，用来判断新的从 4 获取的新数组，并用它与arr做比较 -->
+
+<script>
+  var box = document.querySelector('#box')
+  var next = document.querySelector('#next')
+  
+  var width = 30, height = 20, arr = []
+
+  for(var i = 0; i < height; i++){
+    for(var j = 0; j < width; j++){
+    var input = document.createElement('input')
+    input.setAttribute('type', 'checkbox')
+    box.append(input)
+    arr.push(input)
+    }
+    var space = document.createElement('br')
+    box.append(space)
+  }
+
+  //使原始数组全变为boolean
+  function judugeCheckbox(){
+    return arr.map( it => it.checked )
+  }
+
+  //
+  function changeCheckbox(array){
+    // debugger;
+
+    return array.forEach((flags, i) => { arr[i].checked = flags  })
+  }
+
+  //设置一开有多少个细胞
+  function init(){
+    var res = []
+    for(var i = 0; i < arr.length; i++){
+      if(Math.random() < 0.3){
+        res.push(arr[i].checked = true)
+      }
+    }
+    return res
+  } 
+  
+  init(arr)
+
+//上面的函数设置了有多少个细胞
+  function nextCell(cell){
+    // debugger;
+    console.log(cell)
+    let newArr = new Array(width * height)
+    for(var i = 0; i < height; i++){
+      for(var j = 0; j < width; j++){
+        let count = countCell(cell ,j, i)
+        //每一行要计算x所在位置上下两行，要x + y（在第几行）* width
+        let idx = j + i * width
+        if(count < 2 || count > 3){
+          newArr[idx] = false
+        }
+        else if(count == 2){
+          newArr[idx] = cell[idx]
+        }
+        else{
+          newArr[idx] = true
+        }
+      }
+    }
+
+    return newArr
+  }
+
+ 
+
+  function countCell(cellContainer, x, y){
+    //要给一个范围，最小值为0，最大值为width - 1
+    let x1 = Math.max(0, x - 1)
+    let x2 = Math.min(width - 1 ,x + 1)
+
+    let y1 = Math.max(0, y - 1)
+    let y2 = Math.min(height - 1 ,y + 1)
+
+    let count = 0
+      
+    for(let x3 = x1; x3 <= x2; x3++){
+      for(let y3 = y1; y3 <= y2; y3++){   
+        //每一行要计算x所在位置上下两行，要x + y（在第几行）* width
+        if( cellContainer[x3 + y3 * width] && (x != i || y != j)){
+          count++
+        }
+      }
+    }
+    return count
+  }
+
+  function running(){
+    changeCheckbox(nextCell(judugeCheckbox()))
+  }
+
+  next.addEventListener('click', function(){
+    changeCheckbox(nextCell(judugeCheckbox()))
+  })
+
+  
+  var auto = document.querySelector('#autoPlay')
+  var play = null
+  auto.addEventListener('click', e => {
+    setTimeout(() => {
+      play = setInterval(running, 1000)
+    })   
+  })
+
+</script>
