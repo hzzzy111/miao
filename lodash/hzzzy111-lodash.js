@@ -595,6 +595,24 @@ var hzzzy111 = function(){
     return res
   } 
 
+  function findIndex(array, predicate, fromIndex = 0){
+    predicate = iteratee(predicate)
+    for(; fromIndex < array.length; fromIndex++){
+      if(predicate(array[fromIndex])){
+        return fromIndex
+      }
+    }
+  }
+
+  function findLastIndex(array, predicate, fromIndex = array.length - 1){
+    predicate = iteratee(predicate)
+    for(; fromIndex >= 0; fromIndex--){
+      if(predicate(array[fromIndex])){
+        return fromIndex
+      }
+    }
+  }
+
 
   //能拆解'a[0].b.c'这种各式字符串， 并返回包含属性路径的数组
   function toPath(value){
@@ -657,11 +675,22 @@ var hzzzy111 = function(){
     if(typeof predicate == 'string'){
       return porperty(predicate)
     }
-    if(typeof predicate == 'fcuntion'){
+    if(typeof predicate == 'function'){
       return predicate
     }
-    if(typeof predicate == 'object'){}
-    if(Array.from(predicate)){}
+    if(typeof predicate == 'object'){
+      return matches(predicate)
+    }
+    if(Array.isArray(predicate)){
+      return matchesProperty(...predicate)
+    }
+  }
+
+  //参数接数组
+  function matchesProperty(key, val){
+    return function(obj){
+      return isEqual(get(obj, key), val)
+    }
   }
 
   //执行深比较来确定两者的值是否相等。支持数组、对象、字符串、boolean
@@ -773,10 +802,13 @@ var hzzzy111 = function(){
     porperty: porperty,
     get: get,
     iteratee: iteratee,
-    dropRightWhile: dropRightWhile,
     matches: matches,
     isMatch: isMatch,
+    dropRightWhile: dropRightWhile,
     dropWhile: dropWhile,
+    findLastIndex: findLastIndex,
+    findIndex: findIndex,
+    matchesProperty: matchesProperty,
 
 
   }
