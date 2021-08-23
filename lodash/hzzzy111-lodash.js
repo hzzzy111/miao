@@ -213,7 +213,7 @@ var hzzzy111 = function(){
     var ary = []
     if(typeof iteratee !== "function"){
       for(var i = 0; i < array.length; i++){
-        ary.push(array[i][iteratee])
+        ary.push(iteratee(array[i], i, array))
       }
       return ary
     }
@@ -226,8 +226,16 @@ var hzzzy111 = function(){
       for(var i in array){
         ary.push(iteratee(array[i], i, array))
       }
+      return ary
     }
-    return ary
+    if(typeof iteratee == 'string'){
+      iteratee = porperty(iteratee)
+      for(var key of array){
+        ary.push(iteratee(array[key], key, array))
+      }
+      return ary
+    }
+    
   }
 
   function zip(array){
@@ -588,6 +596,8 @@ var hzzzy111 = function(){
         }
         return true
         
+      }else{
+        return false
       }
 
     }
@@ -609,6 +619,52 @@ var hzzzy111 = function(){
     }
     return res
   } 
+
+
+  //能拆解'a[0].b.c'这种各式字符串， 并返回包含属性路径的数组
+  function toPath(value){
+    let res = []
+    if(Array.from(value)){
+      return value
+    }else{
+      res = value.split('/\]\[|\]\.|\.|\[|\]/')
+      if (res[0] === '') {
+        res.shift()
+      }
+      if (res[res.length - 1] === '') {
+          res.pop()
+      }
+      return res
+    }
+  }
+
+
+  function porperty(prop){
+    // return bind(get,null, _, prop) //当一个函数调用另一个函数，传入的参数不变的情况下，永远可以被优化为bind写法
+    return function(obj){
+    //得到深层路径下的（属性）值
+      return get(obj, prop)
+    }
+  }
+
+  function get(obj, path, defaultVal = undefined){
+    let res = []
+    //字符串转数组
+    if(typeof path == 'string'){
+      path = toPath(path)
+    }
+
+    for(var i = 0; i < path.length; i++){
+      if(obj == undefined){
+        obj = defaultVal
+      }else{
+        //使用obj寻找path的属性的值
+        res.push(obj[path[i]])
+      }
+    }
+
+    return res
+  }
 
   return {
     parseJson: parseJson,
@@ -648,6 +704,11 @@ var hzzzy111 = function(){
     differenceBy: differenceBy,
     isEqual: isEqual,
     differenceWith: differenceWith,
+    toPath: toPath,
+    porperty: porperty,
+    get: get,
+
+
 
   }
 
