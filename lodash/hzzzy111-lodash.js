@@ -320,6 +320,34 @@ var hzzzy111 = function(){
     return array
   }
 
+
+  function dropRightWhile(array, predicate){
+    let res = [],  flags = false
+    predicate = iteratee(predicate)
+    for(var i = array.length - 1; i >= 0; i--){
+      if(!predicate(array[i], i, array)){
+        flags = true
+      }
+      if(flags){
+        res.push(array[i])
+      }
+    }
+    return res
+  }
+
+  function dropWhile(array, predicate){
+    let res = [], flags = false
+    predicate = iteratee(predicate)
+    for(var i = 0; i < array.length; i++){
+      if(!predicate(array[i], i, array)){
+        flags = true
+      }
+      if(flags){
+        res.push(array[i])
+      }
+    }
+    return res
+  }
   
 
   function fill(array, value, start = 0, end = array.length){
@@ -748,7 +776,7 @@ var hzzzy111 = function(){
     dropRightWhile: dropRightWhile,
     matches: matches,
     isMatch: isMatch,
-    dropRightWhile: dropRightWhile,
+    dropWhile: dropWhile,
 
 
   }
