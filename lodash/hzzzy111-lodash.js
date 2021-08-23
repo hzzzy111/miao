@@ -320,6 +320,8 @@ var hzzzy111 = function(){
     return array
   }
 
+  
+
   function fill(array, value, start = 0, end = array.length){
     for(var i = start; i < end ; i++){
       array[i] = value
@@ -584,34 +586,6 @@ var hzzzy111 = function(){
   }
 
 
-  function dropRightWhile(array, predicate){
-    let res = [],  flags = false
-    predicate = iteratee(predicate)
-    for(var i = array.length - 1; i >= 0; i--){
-      if(!predicate(array[i], i, array)){
-        flags = true
-      }
-      if(flags){
-        res.push(array[i])
-      }
-    }
-    return res
-  }
-
-  function dropRightWhile(array, predicate){
-    let res = [],  flags = false
-    predicate = iteratee(predicate)
-    for(var i = array.length - 1; i >= 0; i--){
-      if(!predicate(array[i], i, array)){
-        flags = true
-      }
-      if(flags){
-        res.push(array[i])
-      }
-    }
-    return res
-  }
-
 
   function porperty(prop){
     // return bind(get,null, _, prop) //当一个函数调用另一个函数，传入的参数不变的情况下，永远可以被优化为bind写法
@@ -775,7 +749,7 @@ var hzzzy111 = function(){
     matches: matches,
     isMatch: isMatch,
     dropRightWhile: dropRightWhile,
-    
+
 
   }
 
