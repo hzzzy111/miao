@@ -209,33 +209,14 @@ var hzzzy111 = function(){
   }
 
   //
-  function map(array, iteratee){
-    var ary = []
-    if(typeof iteratee !== "function"){
-      for(var i = 0; i < array.length; i++){
-        ary.push(iteratee(array[i], i, array))
-      }
-      return ary
+  function map(array, mapper){
+    let res = []
+    mapper = iteratee(mapper)
+
+    for(let i = 0; i < array.length; i++){
+      res.push(mapper(array[i], i, array))
     }
-    if(Array.isArray(array[i])){
-      for(var i = 0; i < array.length; i++){
-        ary.push(iteratee(array[i], i, array))
-      }
-    }
-    if(typeof array === "object"){
-      for(var i in array){
-        ary.push(iteratee(array[i], i, array))
-      }
-      return ary
-    }
-    if(typeof iteratee == 'string'){
-      iteratee = porperty(iteratee)
-      for(var key of array){
-        ary.push(iteratee(array[key], key, array))
-      }
-      return ary
-    }
-    
+    return res
   }
 
   function zip(array){
@@ -565,43 +546,7 @@ var hzzzy111 = function(){
 
     return result
   }
-
-  function isEqual(value, other){
-
-    if(value == other){
-      return true
-    }
-
-    if(typeof value !== typeof other ){
-      return false
-    }else{
-    //数组、对象都能进
-   
-      if(typeof value == 'object'){
-        if(value.length !== other.length){
-          return false
-        }
-
-        if(!(Object.keys(value).length == Object.keys(other).length)){
-          return false
-        }
-
-        for(let key in value){
-          if(!(key in other)){
-            return false
-          }
-          if(!isEqual(value[key], other[key])){
-            return false
-          }
-        }
-        return true
-        
-      }else{
-        return false
-      }
-
-    }
-  }
+  
   
   function differenceWith(array, values, comparator){
     let target, res = [], flags
@@ -639,6 +584,35 @@ var hzzzy111 = function(){
   }
 
 
+  function dropRightWhile(array, predicate){
+    let res = [],  flags = false
+    predicate = iteratee(predicate)
+    for(var i = array.length - 1; i >= 0; i--){
+      if(!predicate(array[i], i, array)){
+        flags = true
+      }
+      if(flags){
+        res.push(array[i])
+      }
+    }
+    return res
+  }
+
+  function dropRightWhile(array, predicate){
+    let res = [],  flags = false
+    predicate = iteratee(predicate)
+    for(var i = array.length - 1; i >= 0; i--){
+      if(!predicate(array[i], i, array)){
+        flags = true
+      }
+      if(flags){
+        res.push(array[i])
+      }
+    }
+    return res
+  }
+
+
   function porperty(prop){
     // return bind(get,null, _, prop) //当一个函数调用另一个函数，传入的参数不变的情况下，永远可以被优化为bind写法
     return function(obj){
@@ -647,24 +621,113 @@ var hzzzy111 = function(){
     }
   }
 
+  function toPath(value){
+    if(Array.isArray(value)){
+      return value
+    }else{
+      return value.split(/\]\[|\]\.|\.|\[|\]/)
+    }
+  }
+
+  //得到深层路径下的（属性）值
+  //path是一个对象的key值
+  //{ 'a': [{ 'b': { 'c': 3 } }] } 按着路径深层寻找最后的值
   function get(obj, path, defaultVal = undefined){
-    let res = []
     //字符串转数组
     if(typeof path == 'string'){
+      //如果字符串是a[0].b.c这种各式，  将它拆分比化为数组
       path = toPath(path)
     }
-
+    //循环除所有的path（key值）
     for(var i = 0; i < path.length; i++){
       if(obj == undefined){
         obj = defaultVal
       }else{
         //使用obj寻找path的属性的值
-        res.push(obj[path[i]])
+        obj = obj[path[i]]
       }
     }
-
-    return res
+    return obj
   }
+
+  //判断参数的类型
+  function iteratee(predicate){
+    if(typeof predicate == 'string'){
+      return porperty(predicate)
+    }
+    if(typeof predicate == 'fcuntion'){
+      return predicate
+    }
+    if(typeof predicate == 'object'){}
+    if(Array.from(predicate)){}
+  }
+
+  //执行深比较来确定两者的值是否相等。支持数组、对象、字符串、boolean
+  function isEqual(value, other){
+    //递归判断结果，或者是字符串
+    if(value == other){
+      return true
+    }
+    if(typeof value == 'object' && typeof other == 'object'){ 
+      //要判断不可枚举的属性
+      let a = Object.keys(value)
+      let b = Object.keys(other)
+      if(a.length != b.length)
+        return false
+      for(let key in other){
+        //搜寻的键值不在value，结束
+        if(!(key in value)){
+          return false
+        }
+        //如果other是对象就继续下一层的递归
+        if(typeof other[key] == 'object'){
+          if(!isEqual(value[key], other[key])){
+            return false
+          }
+        }
+      }
+      return true
+    }else{
+      return false
+    }
+  }
+
+
+//与isMatch合体, 判断参数是对象类型
+  function matches(prop){
+    return function(obj){
+      return isMatch(obj, prop)
+    }
+  }
+
+  // 执行一个深度比较，来确定 obj 是否含有和 src 完全相等的属性值。
+  function isMatch(obj, src){
+    //字符串, 递归结束条件
+    if(obj == src){
+      return true
+    }
+    //有一方不是对象， 结束。  递归结束条件
+    if(typeof obj !== 'object' || typeof src !== 'object'){
+      return false
+    }
+    for(let key in src){
+      //如果参数src存在并且不是对象
+      if(src[key] && typeof src[key] !== 'object'){
+        //不相等直接返回false
+        if(src[key] !== obj[key]){
+          return false
+        }
+      }else{
+        //isMathch在递归过程中， 接受的结果为false（他们不相等或者其中一者不是对象）
+        if(!isMatch(obj[key], src[key])){
+          return false
+        }
+      }
+      return true
+    }
+  }
+
+  
 
   return {
     parseJson: parseJson,
@@ -707,8 +770,12 @@ var hzzzy111 = function(){
     toPath: toPath,
     porperty: porperty,
     get: get,
-
-
+    iteratee: iteratee,
+    dropRightWhile: dropRightWhile,
+    matches: matches,
+    isMatch: isMatch,
+    dropRightWhile: dropRightWhile,
+    
 
   }
 
