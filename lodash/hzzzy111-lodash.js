@@ -329,7 +329,7 @@ var hzzzy111 = function(){
         flags = true
       }
       if(flags){
-        res.push(array[i])
+        res.unshift(array[i])
       }
     }
     return res
@@ -678,11 +678,12 @@ var hzzzy111 = function(){
     if(typeof predicate == 'function'){
       return predicate
     }
-    if(typeof predicate == 'object'){
-      return matches(predicate)
-    }
+    //Array要放前面，  数组的typeof也是object
     if(Array.isArray(predicate)){
       return matchesProperty(...predicate)
+    }
+    if(typeof predicate == 'object'){
+      return matches(predicate)
     }
   }
 
