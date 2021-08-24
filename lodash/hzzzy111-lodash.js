@@ -524,6 +524,39 @@ var hzzzy111 = function(){
     return array
   }
 
+  function pullAllBy(array, values, f){
+    f = iteratee(f)
+
+    for(let i = 0; i < array.length;){
+      let flags = false
+      values.map(it => {
+        if(f(array[i]) == f(it)){
+          array.splice(i, 1)
+          flags = true
+        }
+      })
+      if(!flags)
+        i++;
+    }
+    return array
+  }
+
+  function pullAllWith(array, values, comparator){
+    
+    for(var i = 0; i < array.length; ){
+      let flags = false
+      values.map(it => {
+        if(comparator(array[i], it)){
+          array.splice(i, 1)
+          flags = true
+        }
+      })
+      if(!flags)
+        i++;
+    }
+    return array
+  }
+
   function reverse(array){
     if(!array) return []
     let prvNum = 0 , lastNum = array.length - 1
@@ -744,10 +777,8 @@ var hzzzy111 = function(){
           return false
         }
         //如果other是对象就继续下一层的递归
-        if(typeof other[key] == 'object'){
-          if(!isEqual(value[key], other[key])){
-            return false
-          }
+        if(!isEqual(value[key], other[key])){
+          return false
         }
       }
       return true
@@ -844,7 +875,8 @@ var hzzzy111 = function(){
     matchesProperty: matchesProperty,
     intersectionBy: intersectionBy,
     intersectionWith: intersectionWith,
-    
+    pullAllBy: pullAllBy,
+    pullAllWith: pullAllWith,
 
   }
 
