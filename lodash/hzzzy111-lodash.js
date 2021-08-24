@@ -420,6 +420,38 @@ var hzzzy111 = function(){
     return result
   }
 
+  function intersectionBy(...array){
+    let mapper = array[array.length - 1]
+    mapper = iteratee(mapper)     
+    let res = []
+    for(var i = 0; i < array[0].length; i++){
+      let target = array[0][i] 
+      array[1].map(it => {
+        if(mapper(it) == mapper(target) && !res.includes(target)){
+          res.push(target)
+        }
+      })
+    }
+    return res
+  }
+
+
+  function intersectionWith(...array){
+    let mapper = array[array.length - 1] 
+    let res = []
+
+    for(var i = 0; i < array[0].length; i++){
+      let target = array[0][i] 
+      array[1].map(it => {
+        if(mapper(it, target)){
+          res.push(target)
+        }
+      })
+    }
+    return res
+  }
+  
+
   function join(array, separator = ","){
     if(!array) return ""
     var str = ""
@@ -810,7 +842,9 @@ var hzzzy111 = function(){
     findLastIndex: findLastIndex,
     findIndex: findIndex,
     matchesProperty: matchesProperty,
-
+    intersectionBy: intersectionBy,
+    intersectionWith: intersectionWith,
+    
 
   }
 
