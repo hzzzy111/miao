@@ -128,16 +128,26 @@ var hzzzy111 = function(){
     return ary
   }
 
-  function unique(array){
+  function uniq(array){
     var ary = []
     for(var i = 0; i < array.length; i++){
-      for(var j = 1 + i; j < array.length; j++){
-        if(array[i] != array[j]){
-          ary.push(array[i])
-        }
+      if(!ary.includes(array[i])){
+        ary.push(array[i])
       }
     }
     return ary
+  }
+
+  function uniqBy(array, mapper){
+    let res = [], ary = []
+    mapper = iteratee(mapper)
+    for(let i = 0; i < array.length; i++){
+      if(!ary.includes(mapper(array[i]))){
+        res.push(array[i])
+        ary.push(mapper(array[i]))
+      }
+    }
+    return res
   }
 
   //对象不成功
@@ -571,20 +581,123 @@ var hzzzy111 = function(){
   }
 
   function sortedIndex(array, value){
-    let prvNum = 0
-    let lastNum = array.length - 1
-    
-    while(true){
-      let midIdx = Math.floor( (prvNum + lastNum) / 2 )
-      if(midIdx === prvNum) return lastNum
-
-      if(array[midIdx] < value){
-        prvNum = midIdx
+    //去重
+    for(let i = 0; i < array.length; i++){
+      if(array[i + 1] == value && array[i] == array[i + 1]){
+        array.splice(i + 1, 1)
+        i--
+      }
+    }
+    let firstNum = 0, lastNum = array.length - 1
+    if(array[0] >= value) return 0
+    while(true) { 
+      let mid = firstNum + (lastNum - firstNum >> 1)
+      if(array[mid] == value) return mid
+      if(array[firstNum + 1] >= value) return firstNum + 1
+      if(array[mid] > value){
+        lastNum = mid
       }else{
-        lastNum = midIdx
+        firstNum = mid
       }
     }
   }
+
+  function sortedIndexBy(array, value, mapper){
+    let ary = [], val
+    if(typeof mapper == 'function'){
+      val = mapper(value)
+      for(let i = 0; i < array.length; i++){
+        ary.push( mapper(array[i]) )
+      }
+    }
+    if(typeof mapper == 'string'){
+      val = value[mapper]
+      for(let key of array){
+       if(mapper in key){
+         ary.push(key[mapper])
+       }
+      }
+    }
+    return sortedIndex(ary, val)
+  }
+
+  function sortedIndexOf(array, value){
+    return sortedIndex(array, value)
+  }
+
+  function sortedLastIndex(array, value){
+    if(value > array[array.length - 1]) return array.length
+    let firstNum = 0, lastNum = array.length - 1
+    while(firstNum < lastNum) { 
+      let mid = firstNum + (lastNum - firstNum >> 1)
+      if(array[mid] > value){
+        lastNum = mid 
+      }else{
+        firstNum = mid + 1
+      }
+    }
+    
+    return firstNum
+    
+  }
+
+  function sortedLastIndexBy(array, value, mapper){
+    let ary = [], val
+    if(typeof mapper == 'function'){
+      val = mapper(value)
+      for(let i = 0; i < array.length; i++){
+        ary.push( mapper(array[i]) )
+      }
+    }
+    if(typeof mapper == 'string'){
+      val = value[mapper]
+      for(let key of array){
+       if(mapper in key){
+         ary.push(key[mapper])
+       }
+      }
+    }
+    return sortedLastIndex(ary, val)
+  }
+
+  function sortedLastIndexOf(array, value){
+    if(!array.includes(value)) return -1
+    if(value == array[0]) return 0
+    if(value > array[array.length - 1]) return array.length
+    let firstNum = 0, lastNum = array.length - 1
+    while(firstNum < lastNum) { 
+      let mid = firstNum + (lastNum - firstNum >> 1) + 1
+      if(array[mid] <= value){
+        firstNum = mid
+      }else{
+        lastNum = mid - 1
+      }
+    }
+    return firstNum
+  }
+
+  function sortedUniq(array){
+    let res = []
+    for(let i = 0; i < array.length; i++){
+      if(res[res.length - 1] !== array[i]){
+        res.push(array[i])
+      }
+    }
+    return res
+  }
+  
+  function sortedUniqBy(array, mapper){
+    let res = [], ary = []
+    mapper = iteratee(mapper)
+    for(let i = 0; i < array.length; i++){
+      if(ary[res.length - 1] !== mapper(array[i])){
+        res.push(array[i])
+        ary.push(mapper(array[i]))
+      }
+    }
+    return res
+  }
+
 
   function tail(array){
     var length = array === 0 ? 0 : array.length
@@ -877,6 +990,14 @@ var hzzzy111 = function(){
     intersectionWith: intersectionWith,
     pullAllBy: pullAllBy,
     pullAllWith: pullAllWith,
+    sortedIndexBy: sortedIndexBy,
+    sortedIndexOf: sortedIndexOf,
+    sortedLastIndexBy: sortedLastIndexBy,
+    sortedLastIndexOf: sortedLastIndexOf,
+    uniq: uniq,
+    uniqBy: uniqBy,
+    sortedUniq: sortedUniq,
+    sortedUniqBy: sortedUniqBy,
 
   }
 
