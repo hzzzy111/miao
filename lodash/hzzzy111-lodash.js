@@ -994,10 +994,10 @@ var hzzzy111 = function(){
     sortedIndexOf: sortedIndexOf,
     sortedLastIndexBy: sortedLastIndexBy,
     sortedLastIndexOf: sortedLastIndexOf,
-    uniq: uniq,
-    uniqBy: uniqBy,
     sortedUniq: sortedUniq,
     sortedUniqBy: sortedUniqBy,
+    uniq: uniq,
+    uniqBy: uniqBy,
 
   }
 
