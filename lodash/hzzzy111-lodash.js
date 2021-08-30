@@ -941,7 +941,6 @@ var hzzzy111 = function(){
     parseJson: parseJson,
     chunk: chunk,
     compact: compact,
-    unique: unique,
     uniqueBy: uniqueBy,
     flattenDeep: flattenDeep,
     flattenDepth: flattenDepth,
