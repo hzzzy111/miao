@@ -151,7 +151,7 @@ var hzzzy111 = function(){
   }
 
   //对象不成功
-  function uniqueBy(array, iteratee){
+  function uniqBy(array, iteratee){
     var ary = []
     for(var i = 0; i < array.length; i++){
       for(var j = 1 + i; j < array.length; j++){
@@ -941,7 +941,6 @@ var hzzzy111 = function(){
     parseJson: parseJson,
     chunk: chunk,
     compact: compact,
-    uniqueBy: uniqueBy,
     flattenDeep: flattenDeep,
     flattenDepth: flattenDepth,
     groupBy: groupBy,
