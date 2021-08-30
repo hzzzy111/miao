@@ -128,7 +128,7 @@ var hzzzy111 = function(){
     return ary
   }
 
-  function unique(array){
+  function uniq(array){
     var ary = []
     for(var i = 0; i < array.length; i++){
       if(!ary.includes(array[i])){
@@ -995,7 +995,7 @@ var hzzzy111 = function(){
     sortedLastIndexOf: sortedLastIndexOf,
     sortedUniq: sortedUniq,
     sortedUniqBy: sortedUniqBy,
-    unique: unique,
+    uniq: uniq,
     uniqBy: uniqBy,
 
   }
