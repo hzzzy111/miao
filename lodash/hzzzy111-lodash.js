@@ -990,6 +990,7 @@ var hzzzy111 = function(){
     pullAllWith: pullAllWith,
     sortedIndexBy: sortedIndexBy,
     sortedIndexOf: sortedIndexOf,
+    sortedLastIndex: sortedLastIndex,
     sortedLastIndexBy: sortedLastIndexBy,
     sortedLastIndexOf: sortedLastIndexOf,
     sortedUniq: sortedUniq,
