@@ -721,6 +721,41 @@ var hzzzy111 = function(){
     return result
   }
 
+  function takeRight(array, n = 1){
+    if(n == 0){
+      return []
+    }
+    let aryLenght = array.length - n
+    for(let i = 0, j = 1; aryLenght > 0; j++){
+      if(j == n){
+        return array
+      }
+      array.splice(i, 1)   
+    }
+    return array
+  }
+
+  function takeRightWhile(array, predicate){
+    predicate = iteratee(predicate)
+
+    for(let key in array){
+      if(!predicate(array[key])){
+        array.splice(key, 1)
+      }
+    }
+
+    return array
+  }
+
+  function takeWhile(array, predicate){
+    predicate = iteratee(predicate)
+    for(let key in array){
+      if(predicate(array[key])){
+        array.splice(key, 1)
+      }
+    }
+    return array
+  }
 
   function differenceBy(arys, ...values){
     //把拆散的参数变为数组
@@ -935,7 +970,62 @@ var hzzzy111 = function(){
     }
   }
 
-  
+  function union(...array){
+    let res = []
+    array = array.map(it => it)
+    for(let idx of array){
+      for(let j = 0; j < idx.length; j++){
+        if(!res.includes(idx[j])){
+          res.push(idx[j])
+        }
+      }
+    }
+    return res
+  }
+
+  function unionBy(...array){
+    let predicate = array.pop()
+    predicate = iteratee(predicate)
+    let ary = [], res = []
+
+    for(let idx of array){
+      for(let j = 0; j < idx.length; j++){
+        let init = idx[j]
+        if(!ary.includes(predicate(idx[j]))){
+          ary.push(predicate(idx[j]))
+          res.push(init)
+        }
+      }
+    }
+    return res
+  }
+
+  //字符转义
+  function escape(string){
+    let res = ''
+    for(var i = 0; i < string.length; i++){
+      if(string[i] == '&'){
+        res += '&amp'
+      }
+      else if(string[i] ==  "<"){
+        res += '&lt'
+      }
+      else if(string[i] == '>'){
+        res += '&gt'
+      }
+      else if(string[i] == '"'){
+        res += '&quot'
+      }
+      else if(string[i] == "'"){
+        res += '&acute'
+      }else{
+        res += string[i]
+      }
+    }
+    return res
+  }    
+
+
 
   return {
     parseJson: parseJson,
@@ -970,6 +1060,9 @@ var hzzzy111 = function(){
     sortedIndex: sortedIndex,
     tail: tail,
     take: take,
+    takeRight: takeRight,
+    takeRightWhile: takeRightWhile,
+    takeWhile: takeWhile,
     differenceBy: differenceBy,
     isEqual: isEqual,
     differenceWith: differenceWith,
@@ -997,6 +1090,10 @@ var hzzzy111 = function(){
     sortedUniqBy: sortedUniqBy,
     uniq: uniq,
     uniqBy: uniqBy,
+    escape: escape,
+    union: union,
+    unionBy: unionBy,
+    
 
   }
 
