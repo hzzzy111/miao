@@ -163,6 +163,25 @@ var hzzzy111 = function(){
     return ary
   }
 
+  function unionWith(...array){
+    let compare = array.pop()
+    let res = []
+    for(let idx of array){
+      for(let key of idx){
+        let flags = true
+        res.forEach(it => {
+          if(compare(it, key)){
+            flags = false
+          }
+        })
+        if(res.length == 0 || flags){
+          res.push(key)
+        }
+      }
+    }
+    return res
+  }
+
   function flattenDeep(array){      
     return array.reduce( (result, item) => {
       return result = result.concat( Array.isArray(item) ? flattenDeep(item) : item )
@@ -1093,6 +1112,7 @@ var hzzzy111 = function(){
     escape: escape,
     union: union,
     unionBy: unionBy,
+    unionWith: unionWith,
     
 
   }
