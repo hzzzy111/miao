@@ -97,7 +97,6 @@ var hzzzy111 = function(){
     }
   
   }
- 
   
 //
 
@@ -586,6 +585,26 @@ var hzzzy111 = function(){
     return array
   }
 
+  function pullAt(ary, ...idx){
+    let res = []
+    ary = ary ? ary : []
+    let count = idx.length - 1
+    if(idx){
+      idx.forEach((it, i) => {
+        res.push(ary[it])
+      })
+      for(let i = ary.length - 1; i > 0; i--){
+        if(i == idx[count]){
+          ary.splice(i, 1)
+          count--
+        }
+      }
+    }else{
+      return ary
+    }
+    return res
+  }
+
   function reverse(array){
     if(!array) return []
     let prvNum = 0 , lastNum = array.length - 1
@@ -1044,7 +1063,503 @@ var hzzzy111 = function(){
     return res
   }    
 
+  function countBy(col, itea){
+    let res = {}
+    if(typeof itea == 'function'){
+      col.forEach(it => {
+        let item = itea(it)
+        if(!(item in res)){
+          res[item] = 0
+          res[item] += 1
+        }else{
+          res[item] += 1
+        }
+      })
+    }else if(typeof itea == 'string'){
+      col.forEach(it => {
+        let item = it[itea]
+        if(!(item in res)){
+          res[item] = 0
+          res[item] += 1
+        }else{
+          res[item] += 1
+        }
+      })
+    }
+    return res
+  }
 
+  function filter(col, pre){
+    pre = iteratee(pre)
+    let res = []
+    for(let key in col){
+      if(pre(col[key], key, col)){
+        res.push(col[key])
+      }
+    }
+    return res
+  }
+
+  function find(col, pre){
+    let res
+    predicate = iteratee(pre)
+    if(typeof user == 'object'){
+      res = []
+    }else{
+      res = ''
+    }
+    for(let key in col){
+      if(predicate(col[key], key, col)){
+        if(typeof col[key] == 'string' || typeof col[key] == 'number'){
+          res = col[key]
+        }else{
+          res.push(col[key])
+        }
+        return res
+      }
+    }
+  }
+
+  function findLast(col, pre){
+    let res
+    predicate = iteratee(pre)
+    if(typeof user == 'object'){
+      res = []
+    }else{
+      res = ''
+    }
+    for(let key = col.length - 1; key > 0 ; key--){
+      if(predicate(col[key], key, col)){
+        if(typeof col[key] == 'string' || typeof col[key] == 'number'){
+          res = col[key]
+        }else{
+          res.push(col[key])
+        }
+        return res
+      }
+    }
+  }
+
+  function flatMap(col, itea){
+    let res = []
+    for(let goal in col){
+      let item = itea(col[goal])
+      if(typeof item == 'string'){
+        res.push(item)
+      }else {
+        res.push(...item)
+      }
+    }
+    return res
+  }
+
+  function includes(col, val, fromIdx){
+    let flag = false
+    if(typeof col == 'string'){
+      for(let it = 0; it < col.length - 1; it++){
+        if(col[it] == val[0] && col.length - it >= val.length){
+          flag = true
+          for(let goal = 0; goal < val.length - 1; goal++){
+            if(col[it] !== val[goal]){
+              flag = false
+              return flag
+            }else{
+              break
+            }
+          }
+        }
+      }
+    }
+    if(col instanceof  Object || col instanceof Array){
+      for(let key in col){
+        if(col[key] == val ){
+          if(fromIdx && fromIdx !== +key){
+            break
+          }
+          flag = true
+          break
+        }
+      }
+    }
+    return flag
+  }
+
+  function size(content) {
+    if (typeof content == 'string' || Array.isArray(content)) {
+      return content.length
+    } else if (typeof content == 'object') {
+      var arr = Object.keys(content)
+      return arr.length
+    }
+  }
+
+  function defer(func, ...args) {
+    var timer = setTimeout(() => {
+      func(...args)
+    })
+    return timer - 1
+  }
+
+  function repeat(str, n){
+    let res = ''
+    while(n > 0){
+      res += str
+      n--
+    }
+    return res
+  }
+
+  function reject(arr, predicate) {
+    predicate = iteratee(predicate)
+    var res = []
+    for (var item of arr) {
+      if (!predicate(item)) {
+        res.push(item)
+      }
+    }
+    return res
+  }
+  
+
+  function toArray(val) {
+    var res = []
+    if ((typeof val === 'object') || (typeof val === 'string')) {
+      for (var k in val) {
+        res.push(val[k])
+      }
+    }
+    return res
+  }
+  function sum(arr) {
+    return sumBy(arr)
+  }
+
+  function sumBy(arr, predicate = it => it) {
+    predicate = iteratee(predicate)
+    var sum = 0
+    for (var i = 0; i < arr.length; i++) {
+      sum += predicate(arr[i])
+    }
+    return sum
+  }
+
+  function isNil(val) {
+    if ((!val && typeof val !== 'undefined' && val != 0) || (typeof val === 'undefined')) {
+      if (val !== val) {
+        return false
+      }
+      return true
+    }
+    return false
+  }
+
+  function isArray(content) {
+    return Object.prototype.toString.call(content) == "[object Array]"
+
+  }
+
+  function isNull(val) {
+    if (!val && typeof val !== 'undefined' && val != 0) {
+      return true
+    }
+    return false
+  }
+
+  function isNaN(val) {
+    if ((val !== val) || (typeof val == 'object' && val.__proto__.constructor.name == "Number")) {
+      return true;
+    }
+    return false;
+  }
+
+  function toPairs(obj) { //toPairs({"a":1,"b":2})   [["a",1],["b",2]]
+    var res = []
+    for (var key in obj) {
+      res.push([key, obj[key]])
+    }
+    return res
+  }
+
+  function without(arr, ...num) {
+    var res = []
+    for (var item of arr) {
+      if (!num.includes(item)) {
+        res.push(item)
+      }
+    }
+    return res
+  }
+
+  function startsWith(str = '', target, position = 0) {
+    str = str.split('')
+    return str[position] == target
+  }
+
+  function trim(str, code = ' ') {
+    str = str.split('')
+    code = code.split('')
+    var res = []
+    for (var item of str) {
+      if (!code.includes(item)) {
+        res.push(item)
+      }
+    }
+    return res.join('')
+  }
+
+  function invert(obj) {
+    var newObj = {}
+    for (var key in obj) {
+      newObj[obj[key]] = key
+    }
+    return newObj
+  }
+
+  function keysIn(obj) {
+    var arr = []
+    for (var key in obj) {
+      arr.push(key)
+    }
+    return arr
+  }
+
+  function toLower(str){
+    let count = 0
+    let res = ''
+    while(count < str.length ){
+      let it = str.charAt(count)
+      count++
+      if(it.charCodeAt() >= 64 && it.charCodeAt() <= 90){
+        it = String.fromCharCode(it.charCodeAt() + 32)
+      }
+      res += it
+    }
+    return res
+  }
+
+  function xorWith(...arr) {
+    predicate = arr.pop()
+    predicate = iteratee(predicate)
+
+    var needArr = [].concat(...arr)
+    var res = []
+    var obj = {}
+
+
+  }
+
+  function toUpper(str){
+    let count = 0
+    let res = ''
+    while(count < str.length ){
+      let it = str.charAt(count)
+      count++
+      if(it.charCodeAt() >= 97 && it.charCodeAt() <= 122){
+        it = String.fromCharCode(it.charCodeAt() - 32)
+      }
+      res += it
+    }
+    return res
+  }
+
+  function replace(str, ...args){
+    let res = ''
+    str = str.split(' ')
+    for(let i in str){
+      if(args[0] == str[i]){
+        str.splice(i, 1, args[1])
+      }
+    }
+    return str.join(' ')
+  }
+
+  function zipObject(arr1, arr2) {
+    var obj = {}
+    for (var i = 0; i < arr1.length; i++) {
+      obj[arr1[i]] = arr2[i]
+    }
+    return obj
+  }
+
+  function keys(obj) {
+    var arr = []
+    if (Array.isArray(obj)) {
+      for (var i = 0; i < obj.length; i++) {
+        arr.push(i)
+      }
+    }
+    else {
+      for (var k in obj) {
+        arr.push(k)
+      }
+
+    }
+    return arr
+  }
+
+  function values(obj) {
+    var arr = []
+    if (typeof obj == 'string' || Array.isArray(obj)) {
+      for (var i = 0; i < obj.length; i++) {
+        arr.push(obj[i])
+      }
+    }
+    else {
+      for (var k in obj) {
+        arr.push(obj[k])
+      }
+
+    }
+    return arr
+  }
+
+  function It(val, other){
+    if(typeof val == 'number' && typeof other == 'number'){
+      val < other
+    }
+    return false
+  }
+
+  function Ite(val, other){
+    if(typeof val == 'number' && typeof other == 'number'){
+      val == other
+    }
+    return false
+  }
+
+  function add(augend, addend){
+    return augend + addend
+  }
+
+  function mean(array){
+    let len = array.length - 1
+    let res = null
+    for(let i = 0; i < len; i++){
+      res += len[i]
+    }
+    return res / array.length
+  }
+
+  function countBy(col, itea){
+    let res = {}
+    if(typeof itea == 'function'){
+      col.forEach(it => {
+        let item = itea(it)
+        if(!(item in res)){
+          res[item] = 0
+          res[item] += 1
+        }else{
+          res[item] += 1
+        }
+      })
+    }else if(typeof itea == 'string'){
+      col.forEach(it => {
+        let item = it[itea]
+        if(!(item in res)){
+          res[item] = 0
+          res[item] += 1
+        }else{
+          res[item] += 1
+        }
+      })
+    }
+    return res
+  }
+
+  function filter(col, pre){
+    pre = iteratee(pre)
+    let res = []
+    for(let key in col){
+      if(pre(col[key], key, col)){
+        res.push(col[key])
+      }
+    }
+    return res
+  }
+
+  function find(col, pre){
+    let res
+    predicate = iteratee(pre)
+    if(typeof user == 'object'){
+      res = []
+    }else{
+      res = ''
+    }
+    for(let key in col){
+      if(predicate(col[key], key, col)){
+        if(typeof col[key] == 'string' || typeof col[key] == 'number'){
+          res = col[key]
+        }else{
+          res.push(col[key])
+        }
+        return res
+      }
+    }
+  }
+
+  function findLast(col, pre){
+    let res
+    predicate = iteratee(pre)
+    if(typeof user == 'object'){
+      res = []
+    }else{
+      res = ''
+    }
+    for(let key = col.length - 1; key > 0 ; key--){
+      if(predicate(col[key], key, col)){
+        if(typeof col[key] == 'string' || typeof col[key] == 'number'){
+          res = col[key]
+        }else{
+          res.push(col[key])
+        }
+        return res
+      }
+    }
+  }
+
+  function flatMap(col, itea){
+    let res = []
+    for(let goal in col){
+      let item = itea(col[goal])
+      if(typeof item == 'string'){
+        res.push(item)
+      }else {
+        res.push(...item)
+      }
+    }
+    return res
+  }
+
+  function includes(col, val, fromIdx){
+    let flag = false
+    if(typeof col == 'string'){
+      for(let it = 0; it < col.length - 1; it++){
+        if(col[it] == val[0] && col.length - it >= val.length){
+          flag = true
+          for(let goal = 0; goal < val.length - 1; goal++){
+            if(col[it] !== val[goal]){
+              flag = false
+              return flag
+            }else{
+              break
+            }
+          }
+        }
+      }
+    }
+    if(col instanceof  Object || col instanceof Array){
+      for(let key in col){
+        if(col[key] == val ){
+          if(fromIdx && fromIdx !== +key){
+            break
+          }
+          flag = true
+          break
+        }
+      }
+    }
+    return flag
+  }
 
   return {
     parseJson: parseJson,
@@ -1091,6 +1606,7 @@ var hzzzy111 = function(){
     iteratee: iteratee,
     matches: matches,
     isMatch: isMatch,
+    xorWith: xorWith,
     dropRightWhile: dropRightWhile,
     dropWhile: dropWhile,
     findLastIndex: findLastIndex,
@@ -1113,9 +1629,43 @@ var hzzzy111 = function(){
     union: union,
     unionBy: unionBy,
     unionWith: unionWith,
+    defer,
+    repeat,
+    reject,
+    toArray,
+    isNil,
+    isNull,
+    isNaN,
+    sum,
+    keys,
+    values,
+    sumBy,
+    isArray,
+    toPairs,
+    without,
+    trim,
+    invert,
+    keysIn,
+    size,
+    It,
+    Ite,
+    add,
+    mean,
+    toLower,
+    toUpper,
+    startsWith,
+    zipObject,
+    replace,
+    pullAt,
+    countBy,
+    filter,
+    find,
+    findLast,
+    flatMap,
+    includes,
     
 
-  }
+  } 
 
 }()
 
