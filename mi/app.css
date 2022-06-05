@@ -203,13 +203,13 @@ a{
   width: 100%;
   transition: height 1s, z-index 1s;
   z-index: 200;
-  
 }
 .header-dropdown > ul{
   width: 1226px;
   margin: 0 auto;
   display: flex;
   list-style: none;
+  border-top:  1px solid black;
 }
 .header-dropdown li {
   color: black;
@@ -571,16 +571,26 @@ input{
 }
 .row-box{
   overflow: hidden;
+  position: relative;
 }
 .sbsb h2{
   display: flex;
   justify-content: space-between;
   position: relative;
 }
-.row-box .button{
+.row-button{
   position: absolute;
-  bottom: -8px;
-  right: 178px;
+  right: 0;
+  z-index: 2000;
+}
+.row-button label{
+  width: 36px;
+  height: 24px;
+  padding: 3px 5px;
+  box-sizing: border-box;
+  display: inline-block;
+  text-align: center;
+  line-height: 24px;
 }
 h2 input{
   display: none;
@@ -588,15 +598,6 @@ h2 input{
 .row-ul li{
   flex: 1 0 auto;
   margin-right: 16px;
-}
-.button label{
-  width: 36px;
-  height: 24px;
-  padding: 3px 5px;
-  border: 1px solid black;
-  box-sizing: border-box;
-  display: inline-block;
-  margin-top: 35px;
 }
 .row-height-li{
   float: left;
