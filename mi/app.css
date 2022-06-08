@@ -287,10 +287,13 @@ input{
 .carousel{
   position: relative;
 }
+.qqq{
+  height: 460px;
+
+}
 .qqq img{
   width: 1226px;
   height: 460px;
-  position: absolute;
   opacity: 0;
   transition: 1s;
 }
